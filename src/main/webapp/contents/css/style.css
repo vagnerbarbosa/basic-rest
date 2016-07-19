@@ -17,3 +17,7 @@
    width: 30%;
    height: 50%;
 }
+
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+  }
