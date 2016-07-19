@@ -10,12 +10,12 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.controller('refresh_control', function ($scope, $interval, $http) {
     $interval(function () {
-        var response = $http.get('http://localhost:8080/venda-tempo/rest/vendas/');
+        var response = $http.get('http://localhost:8080/sales-weather/rest/vendas/');
         response.success(function (data) {
             $scope.sales = data;
             console.log("[main] # of items: " + data.length);
             angular.forEach(data, function (element) {
-                console.log("[main] nota: " + element.numeroFilial);
+                console.log("[main] sale: " + element.numeroFilial);
             });
         });
         response.error(function (status) {
