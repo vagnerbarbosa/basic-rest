@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="refresh_div" >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>Lojão Rio do Peixe - Vendas em Tempos Real</title>
+
+        <!-- CSS  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="contents/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="contents/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+        <!--  Scripts-->
+        <script src="contents/js/jquery-2.1.1.min.js"></script>
+        <script src="contents/js/materialize.js"></script>
+        <script src="contents/js/init.js"></script>
+        <script src="contents/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="contents/js/angular.min.js"></script>
+        <script type="text/javascript" src="contents/js/app.js"></script>
+        <script type="text/javascript" src="contents/js/SumByKey.js"></script>
+
+    </head>
+    <body ng-controller="refresh_control">
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+
+                <a id="logo-container" href="#" class="brand-logo"><img class="image" src="contents/images/logolrp.png" alt="Logo"></a>                
+            </div>
+        </nav>
+
+        <div class="container">
+            <table class="highlight centered responsive-table">
+                <thead>
+                    <tr>
+                        <th data-field="fl">Filial</th>
+                        <th data-field="flname">Nome Filial</th>
+                        <th data-field="brutepriceprod">Valor Bruto Produtos</th>
+                        <th data-field="totalreturnedprod">Total Devolvido Produtos</th>
+                        <th data-field="brutepriceserv">Valor Bruto Serviços</th>
+                        <th data-field="canceledserv">Cancelado Serviços</th>
+                        <th data-field="tickettotal">Ticket Médio Total</th>
+                        <th data-field="sales">Venda Líquida Total</th>
+                    </tr>
+                </thead>
+
+                <tbody ng-repeat="s in sales| orderBy: '-prodSaldoTotal + -servSaldoTotal' ">
+                    <tr>
+                        <td>{{s.numerofilial}}</td>
+                        <td>{{s.fantasia}}</td>
+                        <td>{{s.prodTotalVenda| currency:""}}</td>
+                        <td>{{s.prodTotalDevolvido| currency:""}}</td>
+                        <td>{{s.servTotalVenda| currency:""}}</td>
+                        <td>{{s.servTotalDevolvido| currency:""}}</td>
+                        <td>{{s.servTicketMedio + s.prodTicketMedio| currency:""}}</td>
+                        <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
+                    </tr>                   
+                </tbody>
+            </table>     
+        </div>
+    </body>
+</html>
