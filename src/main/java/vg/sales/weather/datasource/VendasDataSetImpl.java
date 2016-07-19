@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import vg.integrator.component.model.Vendas;
+import vg.sales.weather.model.Vendas;
 
 /**
  *

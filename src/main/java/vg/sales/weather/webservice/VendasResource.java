@@ -18,9 +18,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import vg.integrator.component.datasource.ConnectionException;
-import vg.integrator.component.datasource.VendasDataSetImpl;
-import vg.integrator.component.model.Vendas;
+import vg.sales.weather.datasource.ConnectionException;
+import vg.sales.weather.datasource.VendasDataSetImpl;
+import vg.sales.weather.model.Vendas;
 
 /**
  *

@@ -3,7 +3,7 @@ package vg.sales.weather.datasource;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import vg.integrator.component.model.Vendas;
+import vg.sales.weather.model.Vendas;
 
 /**
  *
