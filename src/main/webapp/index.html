@@ -20,15 +20,6 @@
     <body ng-controller="refresh_control">
         <nav class="light-blue lighten-1" role="navigation">
             <div class="nav-wrapper container">
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Navbar Link</a></li>
-                </ul>
-
-                <ul id="nav-mobile" class="side-nav">
-                    <li><a href="#">Navbar Link</a></li>
-                </ul>
-
                 <a id="logo-container" href="#" class="brand-logo"><img class="image" src="contents/images/logolrp.png" alt="Logo"></a>                
             </div>
         </nav>
@@ -58,7 +49,19 @@
                         <td>{{s.servTotalDevolvido| currency:""}}</td>
                         <td>{{s.servTicketMedio + s.prodTicketMedio| currency:""}}</td>
                         <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
-                    </tr>                   
+                    </tr>  
+                </tbody>
+                <tbody>
+                    <tr>
+                    <td>-</td>
+                    <td>TOTAIS</td>
+                    <td>{{ calcProdTotalVenda() | currency:"" }}</td>
+                    <td>{{ calcProdTotalDevolvido()| currency:"" }}</td>
+                    <td>{{ calcTotalservTotalVenda()| currency:"" }}</td>
+                    <td>{{ calcTotalservTotalDevolvido()| currency:"" }}</td>
+                    <td>{{ calcTotalTicket()| currency:"" }}</td>
+                    <td>{{ calcTotalSales()| currency:"" }}</td>
+                    </tr>
                 </tbody>
             </table>     
         </div>
