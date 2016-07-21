@@ -10,7 +10,7 @@
         <link href="contents/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
         <!--  Scripts-->
-        <script src="contents/js/jquery-2.1.1.min.js"></script>
+        <script src="contents/js/jquery-3.1.0.slim.min.js"></script>
         <script src="contents/css/materialize.min.css"></script>        
         <script src="contents/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="contents/js/angular.min.js"></script>
@@ -53,14 +53,14 @@
                 </tbody>
                 <tbody>
                     <tr>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">-</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">TOTAIS</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcProdTotalVenda() | currency:""}}</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcProdTotalDevolvido() | currency:""}}</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalservTotalVenda() | currency:""}}</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalservTotalDevolvido() | currency:""}}</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{calcTotalTicket() | currency:""}}</td>
-                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalSales() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">-</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">TOTAIS</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcProdTotalVenda() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcProdTotalDevolvido() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalservTotalVenda() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalservTotalDevolvido() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalTicket() | currency:""}}</td>
+                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalSales() | currency:""}}</td>
                     </tr>
                 </tbody>
             </table>     
