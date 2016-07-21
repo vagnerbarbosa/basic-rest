@@ -8,7 +8,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     }
 ]);
 
-app.controller('refresh_control', function ($scope, $interval, $http) {
+app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
     $interval(function () {
         var response = $http.get('http://localhost:8080/sales-weather/rest/vendas/');
         response.success(function (data) {
@@ -17,9 +17,63 @@ app.controller('refresh_control', function ($scope, $interval, $http) {
             angular.forEach(data, function (element) {
                 console.log("[main] sale: " + element.numeroFilial);
             });
+
+            //Totalizadores
+
+            $scope.calcProdTotalVenda = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.prodTotalVenda);
+                });
+                return total;
+            };
+
+            $scope.calcProdTotalDevolvido = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.prodTotalDevolvido);
+                });
+                return total;
+            };
+
+            $scope.calcTotalservTotalVenda = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.servTotalVenda);
+                });
+                return total;
+            };
+
+            $scope.calcTotalservTotalDevolvido = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.servTotalDevolvido);
+                });
+                return total;
+            };
+
+            $scope.calcTotalTicket = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.servTicketMedio + element.prodTicketMedio);
+                });
+                return total;
+            };
+
+            $scope.calcTotalSales = function () {
+                var total = 0;
+                angular.forEach($scope.sales, function (element) {
+                    total = total + (element.prodSaldoTotal + element.servSaldoTotal);
+                });
+                return total;
+            };
+
         });
         response.error(function (status) {
             alert("AJAX failed to get data, status=" + status);
         });
     }, 1000);
+
 });
+
+
