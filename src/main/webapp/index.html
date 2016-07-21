@@ -25,7 +25,7 @@
         </nav>
 
         <div class="container">
-            <table class="highlight centered responsive-table">
+            <table class="centered responsive-table">
                 <thead>
                     <tr>
                         <th data-field="fl">Filial</th>
@@ -53,14 +53,14 @@
                 </tbody>
                 <tbody>
                     <tr>
-                    <td>-</td>
-                    <td>TOTAIS</td>
-                    <td>{{ calcProdTotalVenda() | currency:"" }}</td>
-                    <td>{{ calcProdTotalDevolvido()| currency:"" }}</td>
-                    <td>{{ calcTotalservTotalVenda()| currency:"" }}</td>
-                    <td>{{ calcTotalservTotalDevolvido()| currency:"" }}</td>
-                    <td>{{ calcTotalTicket()| currency:"" }}</td>
-                    <td>{{ calcTotalSales()| currency:"" }}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">-</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">TOTAIS</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcProdTotalVenda() | currency:""}}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcProdTotalDevolvido() | currency:""}}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalservTotalVenda() | currency:""}}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalservTotalDevolvido() | currency:""}}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{calcTotalTicket() | currency:""}}</td>
+                        <td style="background-color: #ECEFF1; font-weight: bold;">{{ calcTotalSales() | currency:""}}</td>
                     </tr>
                 </tbody>
             </table>     
