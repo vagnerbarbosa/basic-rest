@@ -9,7 +9,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -53,7 +57,10 @@ public class VendasResource {
     public ArrayList<Vendas> getVendas() {
         ArrayList<Vendas> vendasList = null;
         try {
-            System.out.println("Get Vendas...");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            
+            ZoneId fusoHorarioDeSaoPaulo = ZoneId.of("America/Fortaleza");
+            System.out.println("Geting Sales... " + ZonedDateTime.now(fusoHorarioDeSaoPaulo));
             LocalDate hoje = LocalDate.now();
             DateTimeFormatter formatador = 
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -63,8 +70,5 @@ public class VendasResource {
             Logger.getLogger(VendasResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vendasList;
-    }    
-    
-    
-    
+    } 
 }
