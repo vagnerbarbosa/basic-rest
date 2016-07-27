@@ -128,7 +128,7 @@ public class VendasDataSetImpl implements VendasDataSet {
 "              GROUP BY 1,2,3) AS dsrv              \n" +
 "\n" +
 "ON filial.idfilial = dsrv.idfilial               \n" +
-"WHERE filial.idfilial NOT IN (10900, 10901, 10002, 10006,10023)\n" +
+"WHERE filial.idfilial NOT IN (10900, 10901, 10002, 10006, 10023, 10025)\n" +
 "ORDER BY filial.numerofilial");
         vendasStatament.setDate(1, datainicial);
         vendasStatament.setDate(2, datafinal);
