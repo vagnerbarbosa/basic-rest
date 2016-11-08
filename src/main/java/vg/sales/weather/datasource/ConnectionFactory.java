@@ -18,6 +18,7 @@ public class ConnectionFactory {
             if (instance == null) {
                 instance = new ConnectionFactory();
                 Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection("jdbc:postgresql://10.0.0.1:1234/bd", "login", "password");
                 
             }
         } catch (ClassNotFoundException e) {

@@ -14,14 +14,15 @@ import vg.sales.weather.model.Vendas;
  */
 public class VendasDataSetImpl implements VendasDataSet {
 
-    private final Connection connection;
+    private Connection connection;
 
-    public VendasDataSetImpl() throws ConnectionException, SQLException {
-        this.connection = ConnectionFactory.getIntance().getConnection();
+    public VendasDataSetImpl() {
+        
     }
 
     @Override
-    public List<Vendas> listarVendas(Date datainicial, Date datafinal) throws SQLException {
+    public List<Vendas> listarVendas(Date datainicial, Date datafinal) throws ConnectionException, SQLException {
+        this.connection = ConnectionFactory.getIntance().getConnection();
         PreparedStatement vendasStatament = connection.prepareStatement("SELECT\n" +
 "  \n" +
 "  filial.idfilial, \n" +
@@ -167,8 +168,10 @@ public class VendasDataSetImpl implements VendasDataSet {
 
                 vendas.add(venda);
             }
+            
             return vendas;
         } else {
+            connection.close();
             throw new SQLException("Não houveram resultados válidos!");
         }
 

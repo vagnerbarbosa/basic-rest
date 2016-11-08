@@ -11,6 +11,6 @@ import vg.sales.weather.model.Vendas;
  */
 public interface VendasDataSet {
     
-    public List<Vendas> listarVendas(Date datainicial, Date datafinal) throws SQLException;
+    public List<Vendas> listarVendas(Date datainicial, Date datafinal) throws ConnectionException, SQLException;
     
 }

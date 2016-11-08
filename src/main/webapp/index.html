@@ -5,29 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
         <title>Lojão Rio do Peixe - Termômetro de Vendas</title>
 
-        <!-- CSS  -->        
+        <!-- CSS -->        
         <link href="contents/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="contents/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
-        <!--  Scripts-->
-        <script src="contents/js/jquery-3.1.0.slim.min.js"></script>
-        <script src="contents/css/materialize.min.css"></script>              
-        <script type="text/javascript" src="contents/js/angular.min.js"></script>
-        <script type="text/javascript" src="contents/js/app.js"></script>
+        
+        <script>
+          $( body ).ready(function(){$(".button-collapse").sideNav();}) 
+        </script>
 
     </head>
     <body ng-controller="refresh_control">
         <nav class="light-blue lighten-1 navivier" role="navigation">
-            <div class="nav-wrapper container">                
-                <ul id="nav-mobile" class="center-align">
-                    <li><p id="titulo">&nbsp;&nbsp;Termômetro de Vendas</p></li>
+            
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo center">Termômetro de Vendas</a>                
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="https://github.com/vagnerbarbosa/sales-weather#sales-weather">Sobre</a></li>
                 </ul>
-                <a id="logo-container" href="#" class="brand-logo"><img class="image" src="contents/images/logolrp.png" alt="Logo Lojão Rio do Peixe"></a>                
             </div>
+            
         </nav>
 
         <div class="container">
-            <table class="centered responsive-table">
+            <table class="centered highlight responsive-table">
                 <thead>
                     <tr>
                         <th data-field="fl">Filial</th>
@@ -53,19 +53,26 @@
                         <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
                     </tr>  
                 </tbody>
-                <tbody>
+                <tbody class="total-style">
                     <tr>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">-</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">TOTAIS</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcProdTotalVenda() | currency:""}}</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcProdTotalDevolvido() | currency:""}}</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalservTotalVenda() | currency:""}}</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalservTotalDevolvido() | currency:""}}</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalTicket() | currency:""}}</td>
-                        <td style="background-color: #E3F2FD; font-weight: bold;">{{calcTotalSales() | currency:""}}</td>
+                        <td>-</td>
+                        <td>TOTAIS</td>
+                        <td>{{calcProdTotalVenda() | currency:""}}</td>
+                        <td>{{calcProdTotalDevolvido() | currency:""}}</td>
+                        <td>{{calcTotalservTotalVenda() | currency:""}}</td>
+                        <td>{{calcTotalservTotalDevolvido() | currency:""}}</td>
+                        <td>{{calcTotalTicket() | currency:""}}</td>
+                        <td>{{calcTotalSales() | currency:""}}</td>
                     </tr>
                 </tbody>
             </table>     
         </div>
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="contents/js/jquery-3.1.0.slim.min.js"></script>              
+        <script type="text/javascript" src="contents/js/angular.min.js"></script>
+        <script type="text/javascript" src="contents/js/app.sales.js"></script>        
+        <script type="text/javascript" src="contents/js/materialize.min.js"></script>
+
     </body>
 </html>

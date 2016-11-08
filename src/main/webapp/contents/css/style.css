@@ -25,3 +25,16 @@ html {
 #logo-container {
     margin-left: 47%;
 }
+
+.total-style {
+    background-color: #E3F2FD;
+    font-weight: bold;
+}
+
+body {
+    background-image: url(../images/logolrp.png);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 50% 26%;
+    background-clip: initial;   
+}
