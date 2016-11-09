@@ -1,5 +1,5 @@
 # sales-weather
-Real-Time Sales Update System
+Real-Time Sales Check System
 
 ----------------------------------------------------------------------------
 
