@@ -72,7 +72,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
         response.error(function (status) {
             console.log("AJAX failed to get data, status=" + status);
         });
-    }, 1000);
+    }, 10000);
 
 });
 

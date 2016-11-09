@@ -38,3 +38,17 @@ body {
     background-position: 50% 26%;
     background-clip: initial;   
 }
+
+#preloader {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    background: white;
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 50% 26%;
+    background-clip: initial;     
+}

@@ -8,71 +8,84 @@
         <!-- CSS -->        
         <link href="contents/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="contents/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        
-        <script>
-          $( body ).ready(function(){$(".button-collapse").sideNav();}) 
-        </script>
-
-    </head>
-    <body ng-controller="refresh_control">
-        <nav class="light-blue lighten-1 navivier" role="navigation">
-            
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center">Termômetro de Vendas</a>                
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="https://github.com/vagnerbarbosa/sales-weather#sales-weather">Sobre</a></li>
-                </ul>
-            </div>
-            
-        </nav>
-
-        <div class="container">
-            <table class="centered highlight responsive-table">
-                <thead>
-                    <tr>
-                        <th data-field="fl">Filial</th>
-                        <th data-field="flname">Nome Filial</th>
-                        <th data-field="brutepriceprod">Valor Bruto Produtos</th>
-                        <th data-field="totalreturnedprod">Total Devolvido Produtos</th>
-                        <th data-field="brutepriceserv">Valor Bruto Serviços</th>
-                        <th data-field="canceledserv">Serviços Cancelados</th>
-                        <th data-field="tickettotal">Ticket Médio Total</th>
-                        <th data-field="sales">Venda Líquida Total</th>
-                    </tr>
-                </thead>
-
-                <tbody ng-repeat="s in sales| orderBy: '-prodSaldoTotal + -servSaldoTotal' ">
-                    <tr>
-                        <td>{{s.numerofilial}}</td>
-                        <td>{{s.fantasia}}</td>
-                        <td>{{s.prodTotalVenda| currency:""}}</td>
-                        <td>{{s.prodTotalDevolvido| currency:""}}</td>
-                        <td>{{s.servTotalVenda| currency:""}}</td>
-                        <td>{{s.servTotalDevolvido| currency:""}}</td>
-                        <td>{{s.servTicketMedio + s.prodTicketMedio| currency:""}}</td>
-                        <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
-                    </tr>  
-                </tbody>
-                <tbody class="total-style">
-                    <tr>
-                        <td>-</td>
-                        <td>TOTAIS</td>
-                        <td>{{calcProdTotalVenda() | currency:""}}</td>
-                        <td>{{calcProdTotalDevolvido() | currency:""}}</td>
-                        <td>{{calcTotalservTotalVenda() | currency:""}}</td>
-                        <td>{{calcTotalservTotalDevolvido() | currency:""}}</td>
-                        <td>{{calcTotalTicket() | currency:""}}</td>
-                        <td>{{calcTotalSales() | currency:""}}</td>
-                    </tr>
-                </tbody>
-            </table>     
-        </div>
 
         <!-- Scripts -->
         <script type="text/javascript" src="contents/js/jquery-3.1.0.slim.min.js"></script>              
         <script type="text/javascript" src="contents/js/angular.min.js"></script>
         <script type="text/javascript" src="contents/js/app.sales.js"></script>        
         <script type="text/javascript" src="contents/js/materialize.min.js"></script>
+        <script type="text/javascript" src="contents/js/jquery-v2.2.5-pre.js"></script>
+
+        <script>
+            var i = setInterval(function () {
+
+                clearInterval(i);
+
+                // O código desejado é apenas isto:
+                document.getElementById("preloader").style.display = "none";
+                document.getElementById("all").style.display = "inline";
+
+            }, 12000);
+        </script>        
+
+    </head>
+    <body ng-controller="refresh_control">
+
+        <div id="preloader"></div>
+        <div class="all">
+            <nav class="light-blue lighten-1 navivier" role="navigation">
+
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo center">Termômetro de Vendas</a>                
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="https://github.com/vagnerbarbosa/sales-weather#sales-weather">Sobre</a></li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <div class="container">
+                <table class="centered highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th data-field="fl">Filial</th>
+                            <th data-field="flname">Nome Filial</th>
+                            <th data-field="brutepriceprod">Valor Bruto Produtos</th>
+                            <th data-field="totalreturnedprod">Total Devolvido Produtos</th>
+                            <th data-field="brutepriceserv">Valor Bruto Serviços</th>
+                            <th data-field="canceledserv">Serviços Cancelados</th>
+                            <th data-field="tickettotal">Ticket Médio Total</th>
+                            <th data-field="sales">Venda Líquida Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody ng-repeat="s in sales| orderBy: '-prodSaldoTotal + -servSaldoTotal' ">
+                        <tr>
+                            <td>{{s.numerofilial}}</td>
+                            <td>{{s.fantasia}}</td>
+                            <td>{{s.prodTotalVenda| currency:""}}</td>
+                            <td>{{s.prodTotalDevolvido| currency:""}}</td>
+                            <td>{{s.servTotalVenda| currency:""}}</td>
+                            <td>{{s.servTotalDevolvido| currency:""}}</td>
+                            <td>{{s.servTicketMedio + s.prodTicketMedio| currency:""}}</td>
+                            <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
+                        </tr>  
+                    </tbody>
+                    <tbody class="total-style">
+                        <tr>
+                            <td>-</td>
+                            <td>TOTAIS</td>
+                            <td>{{calcProdTotalVenda() | currency:""}}</td>
+                            <td>{{calcProdTotalDevolvido() | currency:""}}</td>
+                            <td>{{calcTotalservTotalVenda() | currency:""}}</td>
+                            <td>{{calcTotalservTotalDevolvido() | currency:""}}</td>
+                            <td>{{calcTotalTicket() | currency:""}}</td>
+                            <td>{{calcTotalSales() | currency:""}}</td>
+                        </tr>
+                    </tbody>
+                </table>     
+            </div>
+        </div>
 
     </body>
 </html>

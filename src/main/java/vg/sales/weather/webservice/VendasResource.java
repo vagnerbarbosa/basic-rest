@@ -31,7 +31,7 @@ import vg.sales.weather.model.Vendas;
  * @author vagner
  */
 @Path("/vendas")
-public class VendasResource {
+public class VendasResource extends CORSFilter {
     
     static final String API_VERSION = "1.01A rev.18729";    
     static String xmlString = null;
@@ -54,7 +54,7 @@ public class VendasResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<Vendas> getVendas() {
+    public ArrayList<Vendas> getVendas() throws ConnectionException {
         ArrayList<Vendas> vendasList = null;
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
