@@ -9,25 +9,6 @@
         <link href="contents/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="contents/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
-        <!-- Scripts -->
-        <script type="text/javascript" src="contents/js/jquery-3.1.0.slim.min.js"></script>              
-        <script type="text/javascript" src="contents/js/angular.min.js"></script>
-        <script type="text/javascript" src="contents/js/app.sales.js"></script>        
-        <script type="text/javascript" src="contents/js/materialize.min.js"></script>
-        <script type="text/javascript" src="contents/js/jquery-v2.2.5-pre.js"></script>
-
-        <script>
-            var i = setInterval(function () {
-
-                clearInterval(i);
-
-                // O código desejado é apenas isto:
-                document.getElementById("preloader").style.display = "none";
-                document.getElementById("all").style.display = "inline";
-
-            }, 12000);
-        </script>        
-
     </head>
     <body ng-controller="refresh_control">
 
@@ -45,7 +26,7 @@
             </nav>
 
             <div class="container">
-                <table class="centered highlight responsive-table">
+                <table class="centered highlight">
                     <thead>
                         <tr>
                             <th data-field="fl">Filial</th>
@@ -59,26 +40,26 @@
                         </tr>
                     </thead>
 
-                    <tbody ng-repeat="s in sales| orderBy: '-prodSaldoTotal + -servSaldoTotal' ">
+                    <tbody ng-repeat="s in sales| orderBy: '-prodBalanceTotal + -servBalanceTotal' ">
                         <tr>
-                            <td>{{s.numerofilial}}</td>
-                            <td>{{s.fantasia}}</td>
-                            <td>{{s.prodTotalVenda| currency:""}}</td>
-                            <td>{{s.prodTotalDevolvido| currency:""}}</td>
-                            <td>{{s.servTotalVenda| currency:""}}</td>
-                            <td>{{s.servTotalDevolvido| currency:""}}</td>
-                            <td>{{s.servTicketMedio + s.prodTicketMedio| currency:""}}</td>
-                            <td>{{s.prodSaldoTotal + s.servSaldoTotal| currency:""}}</td>
+                            <td>{{s.branchNumber}}</td>
+                            <td>{{s.trade}}</td>
+                            <td>{{s.prodSaleTotal| currency:""}}</td>
+                            <td>{{s.prodDevolutionTotal| currency:""}}</td>
+                            <td>{{s.servSaleTotal| currency:""}}</td>
+                            <td>{{s.servDevolutionTotal| currency:""}}</td>
+                            <td>{{s.servAverageTicket + s.prodAverageTicket| currency:""}}</td>
+                            <td>{{s.prodBalanceTotal + s.servBalanceTotal| currency:""}}</td>
                         </tr>  
                     </tbody>
                     <tbody class="total-style">
                         <tr>
                             <td>-</td>
                             <td>TOTAIS</td>
-                            <td>{{calcProdTotalVenda() | currency:""}}</td>
-                            <td>{{calcProdTotalDevolvido() | currency:""}}</td>
-                            <td>{{calcTotalservTotalVenda() | currency:""}}</td>
-                            <td>{{calcTotalservTotalDevolvido() | currency:""}}</td>
+                            <td>{{calcProdSaleTotal() | currency:""}}</td>
+                            <td>{{calcProdDevolutionTotal() | currency:""}}</td>
+                            <td>{{calcTotalservTotalSale() | currency:""}}</td>
+                            <td>{{calcTotalservTotalDevolution() | currency:""}}</td>
                             <td>{{calcTotalTicket() | currency:""}}</td>
                             <td>{{calcTotalSales() | currency:""}}</td>
                         </tr>
@@ -86,6 +67,13 @@
                 </table>     
             </div>
         </div>
-
+        
+        <!-- Scripts -->           
+        <script type="text/javascript" src="contents/js/angular.min.js"></script>
+        <script type="text/javascript" src="contents/js/app.sales.js"></script>        
+        <script type="text/javascript" src="contents/js/materialize.min.js"></script>
+        <script type="text/javascript" src="contents/js/jquery-2.2.5-pre.min.js"></script>     
+        <script type="text/javascript" src="contents/js/utils.js"></script>
+        
     </body>
 </html>

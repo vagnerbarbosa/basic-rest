@@ -10,44 +10,44 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
     $interval(function () {
-        var response = $http.get('http://localhost:8080/sales-weather/rest/vendas/');
+        var response = $http.get('http://localhost:8080/sales-weather/rest/sales/');
         response.success(function (data) {
             $scope.sales = data;
             console.log("[main] # of items: " + data.length);
             angular.forEach(data, function (element) {
-                console.log("[main] sale: " + element.numerofilial);
+                console.log("[main] sale: " + element.branchNumber);
             });
 
             //Totalizadores
 
-            $scope.calcProdTotalVenda = function () {
+            $scope.calcProdSaleTotal = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.prodTotalVenda);
+                    total = total + (element.prodSaleTotal);
                 });
                 return total;
             };
 
-            $scope.calcProdTotalDevolvido = function () {
+            $scope.calcProdDevolutionTotal = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.prodTotalDevolvido);
+                    total = total + (element.prodDevolutionTotal);
                 });
                 return total;
             };
 
-            $scope.calcTotalservTotalVenda = function () {
+            $scope.calcTotalservTotalSale = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servTotalVenda);
+                    total = total + (element.servSaleTotal);
                 });
                 return total;
             };
 
-            $scope.calcTotalservTotalDevolvido = function () {
+            $scope.calcTotalservTotalDevolution = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servTotalDevolvido);
+                    total = total + (element.servDevolutionTotal);
                 });
                 return total;
             };
@@ -55,7 +55,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
             $scope.calcTotalTicket = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servTicketMedio + element.prodTicketMedio);
+                    total = total + (element.servAverageTicket + element.prodAverageTicket);
                 });
                 return total;
             };
@@ -63,7 +63,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
             $scope.calcTotalSales = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.prodSaldoTotal + element.servSaldoTotal);
+                    total = total + (element.prodBalanceTotal + element.servBalanceTotal);
                 });
                 return total;
             };
