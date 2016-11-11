@@ -10,7 +10,15 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
     $interval(function () {
-        var response = $http.get('http://localhost:8080/sales-weather/rest/sales/');
+        var response =  $http({
+            method: 'GET',
+            url: 'http://192.168.18.250:8080/sales-weather/rest/sales/', 
+            headers: {'Access-Control-Allow-Origin': '*',
+                      'Access-Control-Allow-Methods':'GET',
+                      'Access-Control-Request-Method': '*',
+                      'Access-Control-Allow-Headers': 'Origin'}
+
+        });
         response.success(function (data) {
             $scope.sales = data;
             console.log("[main] # of items: " + data.length);
