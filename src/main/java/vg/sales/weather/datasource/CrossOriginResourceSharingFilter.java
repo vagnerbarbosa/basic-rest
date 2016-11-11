@@ -22,6 +22,7 @@ public class CrossOriginResourceSharingFilter implements ContainerResponseFilter
         cresp.getHttpHeaders().putSingle("Access-Control-Allow-Credentials", "true");
         cresp.getHttpHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         cresp.getHttpHeaders().putSingle("Access-Control-Allow-Headers", "Content-Type, Accept");
+        cresp.getHttpHeaders().putSingle("Authorization", "55d5927329415b000100003b63a9e1b480b64a1040a902a26da862d1");
 
         return cresp;
     }
