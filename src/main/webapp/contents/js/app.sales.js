@@ -12,7 +12,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
     $interval(function () {
         var response =  $http({
             method: 'GET',
-            url: 'http://192.168.18.250:8080/sales-weather/webservice/sales/', 
+            url: 'http://localhost:8080/sales-weather/webservice/sales/', 
             headers: {'Access-Control-Allow-Origin': '*',
                       'Access-Control-Allow-Methods':'GET',
                       'Access-Control-Request-Method': '*',

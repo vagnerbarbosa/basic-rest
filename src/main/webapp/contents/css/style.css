@@ -6,6 +6,11 @@
  * Made By MaterializeCSS.com
  */
 
+* {
+margin:0;
+padding:0;
+}
+
 .icon-block {
     padding: 0 15px;
 }
@@ -32,11 +37,7 @@ html {
 }
 
 body {
-    background-image: url(../images/logolrp.png);
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: 50% 26%;
-    background-clip: initial;   
+
 }
 
 #preloader {
@@ -46,9 +47,46 @@ body {
     bottom: 0px;
     top: 0px;
     background: white;
-    background-image: url(../images/loading.gif);
+    background-image: url(../img/loading.gif);
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: 50% 26%;
     background-clip: initial;     
+}
+
+.container {
+    background-attachment: scroll;
+    background-position: 50% 26%;
+    background-clip: initial;
+    width: 100%;
+    margin:0%;
+    padding-top: 0.5%;
+    padding-bottom: 0;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+}
+
+#logo {
+  width: 120px;
+  height: 100px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: -5px;
+  margin-right: -5px;
+  padding-top: 0; 
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#titulo {
+  margin-top: 20px;
+  margin-bottom: -15px;
+  margin-left: -30px;
+  margin-right: -30px;
+  padding-top: 0; 
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  text-height: auto;
 }

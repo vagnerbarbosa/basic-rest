@@ -129,7 +129,7 @@ public class SalesDataSetImpl implements SalesDataSet {
 "              GROUP BY 1,2,3) AS dsrv              \n" +
 "\n" +
 "ON filial.idfilial = dsrv.idfilial               \n" +
-"WHERE filial.idfilial NOT IN (10900, 10901, 10002, 10006, 10023, 10025)\n" +
+"WHERE filial.idfilial NOT IN (10900, 10901, 10002, 10006, 10023, 10025, 10022)\n" +
 "ORDER BY filial.numerofilial");
         salesStatament.setDate(1, initialDate);
         salesStatament.setDate(2, finalDate);
