@@ -49,7 +49,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
             $scope.calcTotalservTotalSale = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servSaleTotal);
+                    total = total + (element.prodBalanceTotal);
                 });
                 return total;
             };
@@ -57,7 +57,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
             $scope.calcTotalservTotalDevolution = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servDevolutionTotal);
+                    total = total + (element.servBalanceTotal);
                 });
                 return total;
             };
@@ -65,7 +65,7 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
             $scope.calcTotalTicket = function () {
                 var total = 0;
                 angular.forEach($scope.sales, function (element) {
-                    total = total + (element.servAverageTicket + element.prodAverageTicket);
+                    total = total + (element.servAverageTicket);
                 });
                 return total;
             };

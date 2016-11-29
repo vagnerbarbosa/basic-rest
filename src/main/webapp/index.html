@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="refresh_div" >
+<html lang="pt-br" ng-app="refresh_div" >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Lojão Rio do Peixe - Termômetro de Vendas</title>
@@ -32,7 +32,7 @@
 
         <style>
             html {
-                font-size: 93%;
+                font-size: 92%;
             }
         </style>
 
@@ -53,8 +53,8 @@
                 <div>
                     <a href="#!" class="navbar-brand"><img id="logo" src="contents/img/logolrp.svg" alt="Logo Lojao Rio do Peixe"></a>                
                     <ul class="nav navbar-nav">
-                        <li class="nav-link text-xl-left"><h1 class="h1-responsive" id="titulo">Termômetro de Vendas</h1></li>
-                        <li><a class="nav-link text-xl-right" data-toggle="modal" data-target="#myModal" href="#myModal">Sobre</a></li>
+                        <li class="nav-link text-xl-left"><h1 class="h1-responsive" id="titulo" ><a data-toggle="modal" data-target="#myModal" style="color: #FFFFFF" href="#myModal">Termômetro de Vendas</a></h1></li>
+                       <!-- <li><a class="nav-link text-xl-right" data-toggle="modal" data-target="#myModal" href="#myModal">Sobre</a></li> -->
                     </ul>
                 </div>
 
@@ -69,9 +69,9 @@
                             <th class="text-lg-center" data-field="flname">NOME FILIAL</th>
                             <th class="text-lg-center" data-field="brutepriceprod">VALOR BRUTO PRODUTOS</th>
                             <th class="text-lg-center" data-field="totalreturnedprod">TOTAL DEVOLVIDO PRODUTOS</th>
-                            <th class="text-lg-center" data-field="brutepriceserv">VALOR BRUTO SERVIÇOS</th>
-                            <th class="text-lg-center" data-field="canceledserv">SERVIÇOS CANCELADOS</th>
-                            <th class="text-lg-center" data-field="tickettotal">TICKET MÉDIO TOTAL</th>
+                            <th class="text-lg-center" data-field="brutepriceserv">VENDA LÍQUIDA PRODUTOS</th>
+                            <th class="text-lg-center" data-field="canceledserv">VENDA LÍQUIDA SERVIÇOS</th>
+                            <th class="text-lg-center" data-field="tickettotal">VENDA LÍQUIDA RECARGAS</th>
                             <th class="text-lg-center" data-field="sales">VENDA LÍQUIDA TOTAL</th>
                         </tr>
                     </thead>
@@ -82,9 +82,9 @@
                             <td class="text-lg-left" style="color: #0059bc; font-weight: bold;">{{s.trade}}</td>
                             <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodSaleTotal| currency:""}}</td>
                             <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.prodDevolutionTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.servSaleTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.servDevolutionTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.servAverageTicket + s.prodAverageTicket| currency:""}}</td>
+                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal| currency:""}}</td>
+                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.servBalanceTotal| currency:""}}</td>
+                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.servAverageTicket| currency:""}}</td>
                             <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal + s.servBalanceTotal| currency:""}}</td>
                         </tr>  
                     </tbody>
@@ -107,14 +107,14 @@
         <!-- Scripts -->           
         <script type="text/javascript" src="contents/js/angular.min.js"></script>
         <script type="text/javascript" src="contents/js/app.sales.js"></script>        
-        <!-- <script type="text/javascript" src="contents/js/materialize.min.js"></script> -->
+        <script type="text/javascript" src="contents/js/angular-locale_pt-br.js"></script>
         <script type="text/javascript" src="contents/js/jquery-2.2.5-pre.min.js"></script>   
         <script type="text/javascript" src="contents/js/utils.js"></script>
 
 
         <!-- Modal -->
-        <div class="modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <!--Content-->
                 <div class="modal-content">
                     <!--Header-->
@@ -126,8 +126,8 @@
                     </div>
                     <!--Body-->
                     <div class="modal-body">
-                        <p class="text-fluid" style="font-size: 95.5%;">Termômetro de Vendas é um sistema de consultas de vendas em tempo real.<p>
-                        <p class="text-fluid" style="font-size: 95.5%;">Licença: THE BEER-WARE LICENSE (Revision 42)</p>                        
+                        <p class="text-fluid">O sistema Termômetro de Vendas é uma solução para o acompanhamento em tempo real das vendas do sistema Sabium.</p>
+                        <p class="text-fluid">Desenvolvido pela T.I. Lojão Rio do Peixe, para uso interno, no auxílio do acompanhamento das vendas via WEB.</p>
                     </div>
                     <!--Footer-->
                     <div class="modal-footer">
