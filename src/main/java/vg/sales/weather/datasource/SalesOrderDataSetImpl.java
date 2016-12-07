@@ -1,10 +1,8 @@
 package vg.sales.weather.datasource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import vg.sales.weather.model.SalesOrder;
 
 /**
@@ -13,30 +11,25 @@ import vg.sales.weather.model.SalesOrder;
  */
 public class SalesOrderDataSetImpl implements SalesOrderDataSet {
     
-    private Connection connection;
-
-    public SalesOrderDataSetImpl() throws ConnectionException {
-        this.connection = ConnectionFactory.getIntance().getConnection();
-    }
-    
-    
+    private EntityManager MANAGER;
 
     @Override
-    public List<SalesOrder> listSalesOrder(Integer branchNumber) throws ConnectionException, SQLException {
-        PreparedStatement salesStatament = connection.prepareStatement("SELECT \n" +
-"   f.numerofilial,   \n" +
+    public List<SalesOrder> listSalesOrder(Integer branchNumber) {
+        MANAGER = Persistence.createEntityManagerFactory("sales-weather").createEntityManager();
+        MANAGER.getTransaction().begin();
+         String jpql = ("SELECT \n" +
 "   i.idpedidovenda,\n" +
+"   f.numerofilial,\n" +
 "   f.fantasia,\n" +
 "   pv.nome,\n" +
-"   fat.numerofilial AS numerofilial_fat,\n" +
 "   i.datamovimento,\n" +
+"   i.idproduto,\n" +
 "   p.descricao||' '||gx.descricao||' '||gy.descricao AS desc_prod,\n" +
 "   i.quantidade,\n" +
 "   sip.descricao AS situacao_item,\n" +
 "   CASE WHEN i.entregar = 1 THEN 'SIM' ELSE 'NÃO' END AS entregar, \n" +
 "   i.idmapacarga,\n" +
 "   sma.descricao AS situacaomapacarga,\n" +
-"   -- CASE WHEN i.entregar = 1 THEN men.idmapaentrega ELSE NULL END AS idmapaentrega,\n" +
 "   men.idmapaentrega,\n" +
 "   CASE WHEN i.previsaoentrega IS NULL THEN pv.previsaofaturamento\n" +
 "    ELSE i.previsaoentrega END AS previsaofaturamento,\n" +
@@ -45,8 +38,8 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "   mmi.idmapamontagem,\n" +
 "   CASE WHEN i.montagem = 1 THEN i.previsaomontagem ELSE NULL END AS  previsaomontagem,\n" +
 "   smm.descricao AS situacaomontagem,\n" +
-"   fir.numerofilial AS filialreserva,\n" +
-"    spe.descricao AS situacaopedidoloja\n" +
+"   COALESCE(fir.numerofilial,f.numerofilial) AS filialreserva,\n" +
+"   spe.descricao AS situacaopedidoloja\n" +
 "   \n" +
 "\n" +
 "  FROM rst.itembase i INNER JOIN rst.pedidovenda pv ON i.idfilial = pv.idfilial AND\n" +
@@ -90,46 +83,12 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "                                                     i.idgradey = pel.idgradey\n" +
 "                      LEFT JOIN sis.situacaopedidoloja spe ON spe.idsituacaopedidoloja = pel.idsituacaopedidoloja\n" +
 "                      LEFT JOIN glb.filial AS fir ON fir.idfilial = pel.idfilial                                \n" +
-"WHERE f.numerofilial IN (?)\n" +
-"AND sip.idsituacaopedidovenda NOT IN (6, 5, 4) \n" +
-"AND COALESCE(i.datamovimento,pv.datainclusao) BETWEEN '01/08/2015' AND CURRENT_DATE");
-        
-        salesStatament.setInt(1, branchNumber);
-        List<SalesOrder> salesOrder = new ArrayList<>();
-        
-        if (salesStatament.execute()) {
-            while(salesStatament.getResultSet().next()){
-                SalesOrder sale = new SalesOrder();
-                
-                sale.setBranchNumber(salesStatament.getResultSet().getInt("numerofilial"));
-                sale.setIdSalesOrder(salesStatament.getResultSet().getInt("idpedidovenda"));
-                sale.setTrade(salesStatament.getResultSet().getString("fantasia"));
-                sale.setClientName(salesStatament.getResultSet().getString("nome"));
-                sale.setBranchNumberToInvoice(salesStatament.getResultSet().getInt("numerofilial_fat"));
-                sale.setMovingDate(salesStatament.getResultSet().getDate("datamovimento"));
-                sale.setProdDescription(salesStatament.getResultSet().getString("desc_prod"));
-                sale.setAmount(salesStatament.getResultSet().getInt("quantidade"));
-                sale.setItemSituation(salesStatament.getResultSet().getString("situacao_item"));
-                sale.setDeliver(salesStatament.getResultSet().getString("entregar"));
-                sale.setIdChargerMap(salesStatament.getResultSet().getInt("idmapacarga"));
-                sale.setSituationChargerMap(salesStatament.getResultSet().getString("situacaomapacarga"));
-                sale.setInvoicePredictionDate(salesStatament.getResultSet().getDate("previsaofaturamento"));
-                sale.setDeliverSituation(salesStatament.getResultSet().getString("situacao_entrega"));
-                sale.setMontage(salesStatament.getResultSet().getString("montagem"));
-                sale.setIdMontageMap(salesStatament.getResultSet().getInt("idmapamontagem"));
-                sale.setPredictionMontageDate(salesStatament.getResultSet().getDate("previsaomontagem"));
-                sale.setMontageSituation(salesStatament.getResultSet().getString("situacaomontagem"));
-                sale.setBranchReserve(salesStatament.getResultSet().getInt("filialreserva"));
-                sale.setShopRequestSituation(salesStatament.getResultSet().getString("situacaopedidoloja"));
-
-                salesOrder.add(sale);
-            }
-            
-            return salesOrder;
-        } else {
-            throw new SQLException("Não houveram resultados válidos!");
-        }        
-
+"WHERE f.numerofilial IN (:branchNumber) AND sip.idsituacaopedidovenda NOT IN (4, 5, 6, 7, 8, 9)" +
+"  \n" +
+"   ");
+         List<SalesOrder> sales = MANAGER.createNativeQuery(jpql, SalesOrder.class).setParameter("branchNumber", branchNumber).getResultList();
+        MANAGER.close();
+         return sales;
     }
     
 }

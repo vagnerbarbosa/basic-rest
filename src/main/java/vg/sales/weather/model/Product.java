@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vg.sales.weather.model;
 
 import java.io.Serializable;
@@ -5,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,25 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author vagner
  */
-@Entity
-@XmlRootElement(name = "salesOrder")
-public class SalesOrder implements Serializable {
 
+public class Product implements Serializable {
     
-    @Column(name = "idpedidovenda")
-    private Integer idSalesOrder; //idpedidovenda
-    @Column(name = "numerofilial")
-    private Integer branchNumber; //numerofilial
-    @Column(name = "fantasia")
-    private String trade; //fantasia
-    @Column(name = "nome")
-    private String clientName; //nome    
-    @Column(name = "datamovimento")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date movingDate; //datamovimento  
-    @Column(name = "situacaopedidoloja")
-    private String shopRequestSituation; //situacaopedidoloja  
-    @Id
+    
     @Column(name = "idproduto")
     private Integer prodId; //idproduto
     @Column(name="filialreserva")
@@ -62,65 +54,7 @@ public class SalesOrder implements Serializable {
     private Date predictionMontageDate; //previsoamontagem
     @Column(name="situacaomontagem")
     private String montageSituation; //situacaomontagem
-
-
-    public SalesOrder() {
-    }
-
-    @XmlElement
-    public Integer getBranchNumber() {
-        return branchNumber;
-    }
-
-    public void setBranchNumber(Integer branchNumber) {
-        this.branchNumber = branchNumber;
-    }
-
-    @XmlElement
-    public Integer getIdSalesOrder() {
-        return idSalesOrder;
-    }
-
-    public void setIdSalesOrder(Integer idSalesOrder) {
-        this.idSalesOrder = idSalesOrder;
-    }
-
-    @XmlElement
-    public String getTrade() {
-        return trade;
-    }
-
-    public void setTrade(String trade) {
-        this.trade = trade;
-    }
-
-    @XmlElement
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    @XmlElement
-    public Date getMovingDate() {
-        return movingDate;
-    }
-
-    public void setMovingDate(Date movingDate) {
-        this.movingDate = movingDate;
-    }
-
-    @XmlElement
-    public String getShopRequestSituation() {
-        return shopRequestSituation;
-    }
-
-    public void setShopRequestSituation(String shopRequestSituation) {
-        this.shopRequestSituation = shopRequestSituation;
-    }
-
+    
     @XmlElement
     public Integer getBranchNumberToInvoice() {
         return branchNumberToInvoice;
@@ -239,7 +173,7 @@ public class SalesOrder implements Serializable {
         this.montageSituation = montageSituation;
     }
        
-    @XmlElement
+
     public Integer getProdId() {
         return prodId;
     }
@@ -248,8 +182,5 @@ public class SalesOrder implements Serializable {
         this.prodId = prodId;
     }
 
-    @Override
-    public String toString() {
-        return "SalesOrder{" + "idSalesOrder=" + idSalesOrder + ", branchNumber=" + branchNumber + ", trade=" + trade + ", clientName=" + clientName + ", movingDate=" + movingDate + ", shopRequestSituation=" + shopRequestSituation + ", prodId=" + prodId + ", branchNumberToInvoice=" + branchNumberToInvoice + ", prodDescription=" + prodDescription + ", amount=" + amount + ", itemSituation=" + itemSituation + ", deliver=" + deliver + ", idChargerMap=" + idChargerMap + ", situationChargerMap=" + situationChargerMap + ", invoicePredictionDate=" + invoicePredictionDate + ", deliverSituation=" + deliverSituation + ", montage=" + montage + ", idMontageMap=" + idMontageMap + ", predictionMontageDate=" + predictionMontageDate + ", montageSituation=" + montageSituation + '}';
-    }    
+  
 }

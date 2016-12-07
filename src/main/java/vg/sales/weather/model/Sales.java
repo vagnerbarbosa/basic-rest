@@ -1,5 +1,9 @@
 package vg.sales.weather.model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -7,30 +11,40 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author vagner
  */
+@Entity
 @XmlRootElement(name = "sales")
-public class Sales {
-
+public class Sales implements Serializable {
+    
+    @Id
+    @Column(name = "idfilial")
     private Integer branchId; //idFilial
-    private Integer branchNumber; // numeroFilial    
+    @Column(name = "numerofilial")
+    private Integer branchNumber; // numeroFilial
+    @Column(name = "fantasia")    
     private String trade; // fantasi
 
-    //Produtos
-    private Integer prodSaleItens; //prodItensVenda
-    private Double prodSaleTotal; //prodTotalVenda
-    private Integer prodDevolutionItens; //prodItensDevolucao
-    private Double prodDevolutionTotal; //prodTotalDevolvido
-    private Integer prodBalanceItens; //prodSaldoItens
-    private Double prodBalanceTotal; //prodSaldoTotal
-    private Double prodAverageTicket; //prodTicketMedio
+    //Produtos 
+    @Column(name = "pro_totalitem")
+    private Double prodSaleTotal; //PRODUT BRUTO
+    @Column(name = "pro_devolucao")
+    private Double prodDevolutionTotal; ////DEV PRODU
+    @Column(name = "p_liquido")
+    private Double prodBalanceTotal; //PROD LIQU    
+ 
 
-    //Serviços
-    private Integer servSale; //servVenda
-    private Double servSaleTotal; //servTotalVenda
-    private Integer servDevolution; //servDevolvido
-    private Double servDevolutionTotal; //servTotalDevolvido
-    private Integer servBalanceItens; //servSaldoItens
-    private Double servBalanceTotal; //servSaldoTotal
-    private Double servAverageTicket; //servTicketMedio   
+    //Serviços 
+    @Column(name = "sg_totalitem")
+    private Double servSaleTotal; //sg_totalitem 
+    @Column(name = "sg_devolucao")
+    private Double servDevolutionTotal; //sg_devolucao
+    @Column(name = "sg_liquido")
+    private Double servBalanceTotal; ////SERVIÇO LIQ
+    @Column(name = "rc_liquido")
+    private Double rechargeTotal; //REG
+    
+    //Total Líquido
+    @Column(name = "total_liquido")
+    private Double balanceTotal; //LIQUI_TOTAL      
 
     /**
      *
@@ -94,23 +108,6 @@ public class Sales {
      * @return
      */
     @XmlElement
-    public Integer getProdSaleItens() {
-        return prodSaleItens;
-    }
-
-    /**
-     *
-     * @param prodSaleItens
-     */
-    public void setProdSaleItens(Integer prodSaleItens) {
-        this.prodSaleItens = prodSaleItens;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlElement
     public Double getProdSaleTotal() {
         return prodSaleTotal;
     }
@@ -121,23 +118,6 @@ public class Sales {
      */
     public void setProdSaleTotal(Double prodSaleTotal) {
         this.prodSaleTotal = prodSaleTotal;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlElement
-    public Integer getProdDevolutionItens() {
-        return prodDevolutionItens;
-    }
-
-    /**
-     *
-     * @param prodDevolutionItens
-     */
-    public void setProdDevolutionItens(Integer prodDevolutionItens) {
-        this.prodDevolutionItens = prodDevolutionItens;
     }
 
     /**
@@ -162,23 +142,6 @@ public class Sales {
      * @return
      */
     @XmlElement
-    public Integer getProdBalanceItens() {
-        return prodBalanceItens;
-    }
-
-    /**
-     *
-     * @param prodBalanceItens
-     */
-    public void setProdBalanceItens(Integer prodBalanceItens) {
-        this.prodBalanceItens = prodBalanceItens;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlElement
     public Double getProdBalanceTotal() {
         return prodBalanceTotal;
     }
@@ -191,39 +154,6 @@ public class Sales {
         this.prodBalanceTotal = prodBalanceTotal;
     }
 
-    /**
-     *
-     * @return
-     */
-    @XmlElement
-    public Double getProdAverageTicket() {
-        return prodAverageTicket;
-    }
-
-    /**
-     *
-     * @param prodAverageTicket
-     */
-    public void setProdAverageTicket(Double prodAverageTicket) {
-        this.prodAverageTicket = prodAverageTicket;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlElement
-    public Integer getServSale() {
-        return servSale;
-    }
-
-    /**
-     *
-     * @param servSale
-     */
-    public void setServSale(Integer servSale) {
-        this.servSale = servSale;
-    }
 
     /**
      *
@@ -247,23 +177,6 @@ public class Sales {
      * @return
      */
     @XmlElement
-    public Integer getServDevolution() {
-        return servDevolution;
-    }
-
-    /**
-     *
-     * @param servDevolution
-     */
-    public void setServDevolution(Integer servDevolution) {
-        this.servDevolution = servDevolution;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlElement
     public Double getServDevolutionTotal() {
         return servDevolutionTotal;
     }
@@ -276,22 +189,7 @@ public class Sales {
         this.servDevolutionTotal = servDevolutionTotal;
     }
 
-    /**
-     *
-     * @return
-     */
-    @XmlElement
-    public Integer getServBalanceItens() {
-        return servBalanceItens;
-    }
 
-    /**
-     *
-     * @param servBalanceItens
-     */
-    public void setServBalanceItens(Integer servBalanceItens) {
-        this.servBalanceItens = servBalanceItens;
-    }
 
     /**
      *
@@ -315,21 +213,33 @@ public class Sales {
      * @return
      */
     @XmlElement
-    public Double getServAverageTicket() {
-        return servAverageTicket;
+    public Double getRechargeTotal() {
+        return rechargeTotal;
     }
 
     /**
      *
-     * @param servAverageTicket
+     * @param rechargeTotal
      */
-    public void setServAverageTicket(Double servAverageTicket) {
-        this.servAverageTicket = servAverageTicket;
+    public void setRechargeTotal(Double rechargeTotal) {
+        this.rechargeTotal = rechargeTotal;
+    }
+
+    @XmlElement
+    public Double getBalanceTotal() {
+        return balanceTotal;
+    }
+
+    public void setBalanceTotal(Double balanceTotal) {
+        this.balanceTotal = balanceTotal;
     }
 
     @Override
     public String toString() {
-        return "Sales{" + "branchId=" + branchId + ", branchNumber=" + branchNumber + ", trade=" + trade + ", prodSaleItens=" + prodSaleItens + ", prodSaleTotal=" + prodSaleTotal + ", prodDevolutionItens=" + prodDevolutionItens + ", prodDevolutionTotal=" + prodDevolutionTotal + ", prodBalanceItens=" + prodBalanceItens + ", prodBalanceTotal=" + prodBalanceTotal + ", prodAverageTicket=" + prodAverageTicket + ", servSale=" + servSale + ", servSaleTotal=" + servSaleTotal + ", servDevolution=" + servDevolution + ", servDevolutionTotal=" + servDevolutionTotal + ", servBalanceItens=" + servBalanceItens + ", servBalanceTotal=" + servBalanceTotal + ", servAverageTicket=" + servAverageTicket + '}';
+        return "Sales{" + "branchId=" + branchId + ", branchNumber=" + branchNumber + ", trade=" + trade + ", prodSaleTotal=" + prodSaleTotal + ", prodDevolutionTotal=" + prodDevolutionTotal + ", prodBalanceTotal=" + prodBalanceTotal + ", balanceTotal=" + balanceTotal + ", servSaleTotal=" + servSaleTotal + ", servDevolutionTotal=" + servDevolutionTotal + ", servBalanceTotal=" + servBalanceTotal + ", servAverageTicket=" + rechargeTotal + '}';
     }
+    
+  
+ 
 
 }
