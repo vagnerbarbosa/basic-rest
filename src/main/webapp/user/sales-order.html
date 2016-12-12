@@ -53,68 +53,68 @@
                     <a href="#!" class="navbar-brand"><img id="logo" src="../contents/img/logolrp.svg" alt="Logo Lojao Rio do Peixe"></a>                
                     <ul class="nav navbar-nav">
                         <li class="nav-link text-xl-left"><h1 class="h1-responsive" id="titulo" ><a data-toggle="modal" data-target="#myModal" style="color: #FFFFFF" href="#myModal">Acompanhamento de Entregas e Montagens</a></h1></li>
-                       <!-- <li><a class="nav-link text-xl-right" data-toggle="modal" data-target="#myModal" href="#myModal">Sobre</a></li> -->
+                        <!-- <li><a class="nav-link text-xl-right" data-toggle="modal" data-target="#myModal" href="#myModal">Sobre</a></li> -->
                     </ul>
                 </div>
 
             </nav>
 
             <div ng-repeat="s in sales" class="container" > 
-<!--Panel-->
-<div class="card">
-    <h3 class="card-header primary-color-dark white-text">Pedido: {{s.trade}} | {{s.idSalesOrder}} </h3>
-    <div class="card-block">
-        <table class="table table-bordered table-sm">
-            <tbody>
-                <tr>
-                    <td>{{s.branchNumberToInvoice}}</td><td>{{s.prodDescription}}</td><td>{{s.deliver}}</td><td>{{s.montage}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<!--/.Panel-->                
-<!--
-
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr>
-                            <th class="text-lg-center" data-field="fl">FILIAL</th>
-                            <th class="text-lg-center" data-field="flname">NOME FILIAL</th>
-                            <th class="text-lg-center" data-field="brutepriceprod">VALOR BRUTO PRODUTOS</th>
-                            <th class="text-lg-center" data-field="totalreturnedprod">TOTAL DEVOLVIDO PRODUTOS</th>
-                            <th class="text-lg-center" data-field="brutepriceserv">VENDA LÍQUIDA PRODUTOS</th>
-                            <th class="text-lg-center" data-field="canceledserv">VENDA LÍQUIDA SERVIÇOS</th>
-                            <th class="text-lg-center" data-field="tickettotal">VENDA LÍQUIDA RECARGAS</th>
-                            <th class="text-lg-center" data-field="sales">VENDA LÍQUIDA TOTAL</th>
-                        </tr>
-                    </thead>
-
-                    <tbody ng-repeat="s in sales| orderBy: '-prodBalanceTotal + -servBalanceTotal' ">
-                        <tr>
-                            <td class="text-lg-center" style="color: #0059bc; font-weight: bold;">{{s.branchNumber}}</td>
-                            <td class="text-lg-left" style="color: #0059bc; font-weight: bold;">{{s.trade}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodSaleTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.prodDevolutionTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.servBalanceTotal| currency:""}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.servAverageTicket| currency:""}}</td>
-                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal + s.servBalanceTotal| currency:""}}</td>
-                        </tr>  
-                    </tbody>
-                    <tbody class="total-style">
-                        <tr>
-                            <td class="text-lg-center">-</td>
-                            <td class="text-lg-center">TOTAIS</td>
-                            <td class="text-lg-right">{{calcProdSaleTotal() | currency:""}}</td>
-                            <td class="text-lg-right">{{calcProdDevolutionTotal() | currency:""}}</td>
-                            <td class="text-lg-right">{{calcTotalservTotalSale() | currency:""}}</td>
-                            <td class="text-lg-right">{{calcTotalservTotalDevolution() | currency:""}}</td>
-                            <td class="text-lg-right">{{calcTotalTicket() | currency:""}}</td>
-                            <td class="text-lg-right">{{calcTotalSales() | currency:""}}</td>
-                        </tr>
-                    </tbody>
-                </table>   -->  
+                <!--Panel-->
+                <div class="card">
+                    <h3 class="card-header primary-color-dark white-text">Pedido: {{s.trade}} | {{s.idSalesOrder}} </h3>
+                    <div class="card-block">
+                        <table class="table table-bordered table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>{{s.branchNumberToInvoice}}</td><td>{{s.prodDescription}}</td><td>{{s.itemSituation}}</td><td>{{s.idDeliverySituation}}</td><td>{{s.idMontageSituation}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--/.Panel-->                
+                <!--
+                
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-lg-center" data-field="fl">FILIAL</th>
+                                            <th class="text-lg-center" data-field="flname">NOME FILIAL</th>
+                                            <th class="text-lg-center" data-field="brutepriceprod">VALOR BRUTO PRODUTOS</th>
+                                            <th class="text-lg-center" data-field="totalreturnedprod">TOTAL DEVOLVIDO PRODUTOS</th>
+                                            <th class="text-lg-center" data-field="brutepriceserv">VENDA LÍQUIDA PRODUTOS</th>
+                                            <th class="text-lg-center" data-field="canceledserv">VENDA LÍQUIDA SERVIÇOS</th>
+                                            <th class="text-lg-center" data-field="tickettotal">VENDA LÍQUIDA RECARGAS</th>
+                                            <th class="text-lg-center" data-field="sales">VENDA LÍQUIDA TOTAL</th>
+                                        </tr>
+                                    </thead>
+                
+                                    <tbody ng-repeat="s in sales| orderBy: '-prodBalanceTotal + -servBalanceTotal' ">
+                                        <tr>
+                                            <td class="text-lg-center" style="color: #0059bc; font-weight: bold;">{{s.branchNumber}}</td>
+                                            <td class="text-lg-left" style="color: #0059bc; font-weight: bold;">{{s.trade}}</td>
+                                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodSaleTotal| currency:""}}</td>
+                                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.prodDevolutionTotal| currency:""}}</td>
+                                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal| currency:""}}</td>
+                                            <td class="text-lg-right" style="color: red; font-weight: bold;">{{s.servBalanceTotal| currency:""}}</td>
+                                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.servAverageTicket| currency:""}}</td>
+                                            <td class="text-lg-right" style="color: #0059bc; font-weight: bold;">{{s.prodBalanceTotal + s.servBalanceTotal| currency:""}}</td>
+                                        </tr>  
+                                    </tbody>
+                                    <tbody class="total-style">
+                                        <tr>
+                                            <td class="text-lg-center">-</td>
+                                            <td class="text-lg-center">TOTAIS</td>
+                                            <td class="text-lg-right">{{calcProdSaleTotal() | currency:""}}</td>
+                                            <td class="text-lg-right">{{calcProdDevolutionTotal() | currency:""}}</td>
+                                            <td class="text-lg-right">{{calcTotalservTotalSale() | currency:""}}</td>
+                                            <td class="text-lg-right">{{calcTotalservTotalDevolution() | currency:""}}</td>
+                                            <td class="text-lg-right">{{calcTotalTicket() | currency:""}}</td>
+                                            <td class="text-lg-right">{{calcTotalSales() | currency:""}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>   -->  
             </div>
         </div>
 
@@ -123,9 +123,9 @@
         <script type="text/javascript" src="../contents/js/app.sales-order.js"></script>        
         <script type="text/javascript" src="../contents/js/angular-locale_pt-br.js"></script>
         <script type="text/javascript" src="../contents/js/jquery-2.2.5-pre.min.js"></script>   
-       <!-- <script type="text/javascript" src="../contents/js/utils.js"></script>
-
-
+        <!-- <script type="text/javascript" src="../contents/js/utils.js"></script>
+ 
+ 
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

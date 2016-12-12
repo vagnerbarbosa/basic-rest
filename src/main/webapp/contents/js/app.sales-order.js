@@ -19,11 +19,22 @@ app.controller('refresh_control', function ($scope, $interval, $http, $filter) {
                       'Authorization': "55d5927329415b000100003b63a9e1b480b64a1040a902a26da862d1"}
 
         });
-        response.success(function (data) {
+        response.success(function (data) {            
             $scope.sales = data;
             console.log("[main] # of items: " + data.length);
             angular.forEach(data, function (element) {
-                console.log("[main] sale: " + element.prodDescription);
+                if (element.itemSituation === 'Fechado') {
+                    element.itemSituation = 'A Faturar';
+                } else if (element.itemSituation === 'Baixado') {
+                    element.itemSituation = 'Faturado';
+                }
+                if (element.idDeliverySituation === 'Aguardando Entrega') {
+                    element.idDeliverySituation = 'Entrega Pendente';
+                }
+                if (element.idMontageSituation === 'A Executar') {
+                    element.idMontageSituation = 'Montagem Pendente';
+                }                
+                console.log("[main] sale: " + element.itemSituation);
             });
 
         });

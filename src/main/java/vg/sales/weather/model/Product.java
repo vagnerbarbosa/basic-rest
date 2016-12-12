@@ -7,11 +7,16 @@ package vg.sales.weather.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,10 +25,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author vagner
  */
-
+@Entity
+@XmlRootElement(name = "products")
 public class Product implements Serializable {
     
     
+    @Id
     @Column(name = "idproduto")
     private Integer prodId; //idproduto
     @Column(name="filialreserva")
@@ -54,7 +61,23 @@ public class Product implements Serializable {
     private Date predictionMontageDate; //previsoamontagem
     @Column(name="situacaomontagem")
     private String montageSituation; //situacaomontagem
-    
+    @Column(name="idsituacaoentrega")
+    private String idDeliverySituation; //idsituacaoentrega
+    @Column(name="idsituacaomontagem")
+    private String idMontageSituation; //idsituacaomontagem
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "prodId") 
+    private SalesOrder saleOrder;
+
+    @XmlElement
+    public Integer getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Integer prodId) {
+        this.prodId = prodId;
+    }
+
     @XmlElement
     public Integer getBranchNumberToInvoice() {
         return branchNumberToInvoice;
@@ -150,7 +173,6 @@ public class Product implements Serializable {
         return idMontageMap;
     }
 
-    @XmlElement
     public void setIdMontageMap(Integer idMontageMap) {
         this.idMontageMap = idMontageMap;
     }
@@ -159,11 +181,11 @@ public class Product implements Serializable {
     public Date getPredictionMontageDate() {
         return predictionMontageDate;
     }
-    
+
     public void setPredictionMontageDate(Date predictionMontageDate) {
         this.predictionMontageDate = predictionMontageDate;
     }
-    
+
     @XmlElement
     public String getMontageSituation() {
         return montageSituation;
@@ -172,15 +194,37 @@ public class Product implements Serializable {
     public void setMontageSituation(String montageSituation) {
         this.montageSituation = montageSituation;
     }
-       
 
-    public Integer getProdId() {
-        return prodId;
+    @XmlElement
+    public String getIdDeliverySituation() {
+        return idDeliverySituation;
     }
 
-    public void setProdId(Integer prodId) {
-        this.prodId = prodId;
+    public void setIdDeliverySituation(String idDeliverySituation) {
+        this.idDeliverySituation = idDeliverySituation;
+    }
+
+    @XmlElement
+    public String getIdMontageSituation() {
+        return idMontageSituation;
+    }
+
+    public void setIdMontageSituation(String idMontageSituation) {
+        this.idMontageSituation = idMontageSituation;
+    }
+
+    public SalesOrder getSaleOrder() {
+        return saleOrder;
+    }
+
+    public void setSaleOrder(SalesOrder saleOrder) {
+        this.saleOrder = saleOrder;
     }
 
   
+    
+    
+    
+    
+   
 }

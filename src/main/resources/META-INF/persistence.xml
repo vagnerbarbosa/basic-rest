@@ -5,6 +5,7 @@
     <!-- entidades mapeadas -->
     <class>vg.sales.weather.model.SalesOrder</class>
     <class>vg.sales.weather.model.Sales</class>
+    <class>vg.sales.weather.model.Product</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties>
