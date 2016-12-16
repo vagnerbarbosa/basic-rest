@@ -6,7 +6,9 @@
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
-    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";        
+    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+    
+    
          
       $routeProvider
         .when('/', {
@@ -24,9 +26,9 @@
           templateUrl: 'user/sales-chart.html',
           controller: 'SalesWeatherChartsController'
         })        
-        .when('/animais/:id', {
-          templateUrl: 'detalhe.html',
-          controller: 'AnimalDetalheController'
+        .when('/acompanhamento-vendas', {
+          templateUrl: 'user/sales-order.html',
+          controller: 'SalesOrderController'
         }).otherwise({
           redirectTo: '/'
         });
