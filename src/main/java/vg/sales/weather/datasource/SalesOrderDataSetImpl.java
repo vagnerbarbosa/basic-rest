@@ -1,5 +1,8 @@
 package vg.sales.weather.datasource;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;

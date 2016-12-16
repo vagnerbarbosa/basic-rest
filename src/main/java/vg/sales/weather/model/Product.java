@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author vagner
  */
-@Entity
 @XmlRootElement(name = "products")
 public class Product implements Serializable {
     
@@ -66,8 +65,8 @@ public class Product implements Serializable {
     @Column(name="idsituacaomontagem")
     private String idMontageSituation; //idsituacaomontagem
     @ManyToOne(optional = false)
-    @JoinColumn(name = "prodId") 
-    private SalesOrder saleOrder;
+    @JoinColumn(name = "idpedidovenda") 
+    private SalesOrder idSaleOrder;
 
     @XmlElement
     public Integer getProdId() {
@@ -213,12 +212,12 @@ public class Product implements Serializable {
         this.idMontageSituation = idMontageSituation;
     }
 
-    public SalesOrder getSaleOrder() {
-        return saleOrder;
+    public SalesOrder getIdSaleOrder() {
+        return idSaleOrder;
     }
 
-    public void setSaleOrder(SalesOrder saleOrder) {
-        this.saleOrder = saleOrder;
+    public void setIdSaleOrder(SalesOrder idSaleOrder) {
+        this.idSaleOrder = idSaleOrder;
     }
 
   

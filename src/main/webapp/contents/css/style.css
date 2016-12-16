@@ -63,7 +63,7 @@ body {
     padding-top: 0.5%;
     padding-bottom: 0;
     padding-left: 1.5%;
-    padding-right: 1.5%;
+    padding-right: -10%;
 }
 
 #logo {
@@ -90,4 +90,40 @@ body {
   padding-right: 0;
   text-height: auto;
   font-weight: bold;
+}
+
+.view {
+	background: url("../img/DSC_0074.jpg")no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100vh;
+}
+
+.full-bg-img {
+	color: #fff;
+}
+
+.title {
+	font-weight:100;
+}
+
+.payment .fa:not(:first-child) {
+	margin-left:10px;
+	color:rgba(255,255,255,.8);
+}
+
+input[type="text"]:focus:not([readonly]) {
+	border-color:#C00;
+	box-shadow:0 1px 0 0 #C00;
+	color:#fff;
+}
+
+input[type="text"]:not([readonly])+label {
+	color:rgba(255,255,255,.65);
+}
+
+input[type="text"]:focus:not([readonly])+label {
+	color:#fff;
 }

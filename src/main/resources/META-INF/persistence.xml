@@ -5,13 +5,12 @@
     <!-- entidades mapeadas -->
     <class>vg.sales.weather.model.SalesOrder</class>
     <class>vg.sales.weather.model.Sales</class>
-    <class>vg.sales.weather.model.Product</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties>
       <!-- dados da conexao -->
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://189.17.100.134:6432/sabium"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://172.16.2.50:5432/sabium"/>
       <property name="javax.persistence.jdbc.user" value="lojaoleitura"/>
       <property name="javax.persistence.jdbc.password" value="lojaoleitura"/>
       <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
