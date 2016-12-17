@@ -15,7 +15,7 @@
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Client-Offset, Authorization',
                 'Access-Control-Allow-Credentials': 'true'
-                    }
+            }
         });
         response.success(function (data) {
             $scope.sales = data;
@@ -28,13 +28,23 @@
         });
 
         $scope.myJson = {
-            type: "vbar3d",
+            type: "hbar",
             "scale-y": {
-                "min-value": "0",
-                "max-value": "39999",
-                "format": "R$ %v",
+                "values": "100:35000:4200",
+                "format": "R$%v",
                 "negation": "currency",
-                "line-width": "400px"
+                "decimals": 2,
+                "decimals-separator": ",", //To set the decimal mark type.
+                "item": {
+                    "font-size": 9,
+                    "font-family": "Georgia",
+                    "font-color": "red",
+                    "border-width": 1,
+                    "border-color": "red",
+                    "background-color": "#ffe6e6",
+                    "padding": "5%",
+                    "angle": -30
+                },
             },
             plot: {
                 "alpha": 0.7,
@@ -57,6 +67,9 @@
 
             },
             "scale-x": {
+                               "item": {
+                   "font-size": 9 
+                },
                 "label": {/* Scale Title */
                     "text": "Filiais",
                 },

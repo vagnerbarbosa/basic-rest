@@ -64,7 +64,7 @@
                 console.log("[main] sale: " + element.itemSituation);
             });            
         });           
-        }, 10000);
+        }, 99999);
 
     };
 })();

@@ -12,21 +12,30 @@
          
       $routeProvider
         .when('/', {
-          title : 'Lojão Rio do Peixe',
+          resolve: {  
+          $title : function() { return 'Lojão Rio do Peixe'; }
+              },
           templateUrl: 'user/home.html',
           controller: 'UserLoginController'
         })      
         .when('/vendas-tabelas', {
-          title : 'Lojão Rio do Peixe - Termômetro de Vendas',  
+          resolve:  {  
+          $title : function() { return 'Lojão Rio do Peixe - Termômetro de Vendas'; }
+              },
           templateUrl: 'user/sales.html',
           controller: 'SalesWeatherTableController'
         })
         .when('/vendas-graficos', {
-          title : 'Lojão Rio do Peixe - Termômetro de Vendas',  
+          resolve: {            
+          $title : function() { return 'Lojão Rio do Peixe - Termômetro de Vendas'; } 
+              },          
           templateUrl: 'user/sales-chart.html',
           controller: 'SalesWeatherChartsController'
         })        
         .when('/acompanhamento-vendas', {
+          resolve: {            
+          $title : function() { return 'Lojão Rio do Peixe - Acompanhamento de Vendas'; }
+              },            
           templateUrl: 'user/sales-order.html',
           controller: 'SalesOrderController'
         }).otherwise({
