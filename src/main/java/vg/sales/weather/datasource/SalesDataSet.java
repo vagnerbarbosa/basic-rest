@@ -10,6 +10,6 @@ import vg.sales.weather.model.Sales;
  */
 public interface SalesDataSet {
     
-    public List<Sales> listSales(Date initialDate, Date finalDate);
+    public List<Sales> listSales(Date initialDate, Date finalDate) throws Exception;
     
 }

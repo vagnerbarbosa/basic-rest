@@ -1,6 +1,7 @@
 package vg.sales.weather.datasource;
 
 import java.util.List;
+import vg.sales.weather.model.Product;
 import vg.sales.weather.model.SalesOrder;
 
 /**
@@ -10,5 +11,6 @@ import vg.sales.weather.model.SalesOrder;
 public interface SalesOrderDataSet {
     
     public List<SalesOrder> listSalesOrder(Integer branchNumber);
+    public List<Product> listSalesProducts(Integer branchNumber);
     
 }

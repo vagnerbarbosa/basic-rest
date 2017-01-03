@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import vg.sales.weather.datasource.SalesOrderDataSetImpl;
+import vg.sales.weather.model.Product;
 import vg.sales.weather.model.SalesOrder;
 
 /**
@@ -45,6 +46,15 @@ public class SalesOrderResource {
             salesList = (ArrayList<SalesOrder>) salesOrderDataSet.listSalesOrder(branchNumber);
         return salesList;
     } 
+    
+    @Path("/products/{branchNumber}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Product> getSalesProducts(@PathParam("branchNumber") Integer branchNumber) {
+        ArrayList<Product> salesList = null;          
+            salesList = (ArrayList<Product>) salesOrderDataSet.listSalesProducts(branchNumber);
+        return salesList;
+    }    
     
     
 

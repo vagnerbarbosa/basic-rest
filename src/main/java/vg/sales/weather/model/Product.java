@@ -7,28 +7,22 @@ package vg.sales.weather.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author vagner
  */
-@XmlRootElement(name = "products")
+@Entity
+@XmlRootElement(name = "product")
 public class Product implements Serializable {
-    
-    
+       
     @Id
     @Column(name = "idproduto")
     private Integer prodId; //idproduto
@@ -63,10 +57,9 @@ public class Product implements Serializable {
     @Column(name="idsituacaoentrega")
     private String idDeliverySituation; //idsituacaoentrega
     @Column(name="idsituacaomontagem")
-    private String idMontageSituation; //idsituacaomontagem
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idpedidovenda") 
-    private SalesOrder idSaleOrder;
+    private String idMontageSituation; //idsituacaomontagem 
+    @Column(name="idpedidovenda")
+    private Integer idSaleOrder;
 
     @XmlElement
     public Integer getProdId() {
@@ -212,18 +205,13 @@ public class Product implements Serializable {
         this.idMontageSituation = idMontageSituation;
     }
 
-    public SalesOrder getIdSaleOrder() {
+    @XmlElement
+    public Integer getIdSaleOrder() {
         return idSaleOrder;
     }
 
-    public void setIdSaleOrder(SalesOrder idSaleOrder) {
+    public void setIdSaleOrder(Integer idSaleOrder) {
         this.idSaleOrder = idSaleOrder;
     }
-
-  
-    
-    
-    
-    
-   
+     
 }
