@@ -143,7 +143,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "                            LEFT JOIN rst.pedidoloja pel ON (i.idfilial = pel.idfilialdetalhe AND i.idpedidovenda = pel.idpedvendafldetalhe AND i.idproduto = pel.idproduto AND i.idgradex = pel.idgradex AND i.idgradey = pel.idgradey)\n" +
 "							LEFT JOIN sis.situacaopedidoloja spe ON (spe.idsituacaopedidoloja = pel.idsituacaopedidoloja)\n" +
 "                            LEFT JOIN glb.filial AS fir ON (fir.idfilial = pel.idfilial)\n" +
-"							WHERE f.numerofilial IN (:branchNumber) AND sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND (sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem <> 2)) AS prd");
+"							WHERE f.numerofilial IN (:branchNumber) AND sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND sma.idsituacaomapacarga NOT IN (1, 10, 11) AND (sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem <> 2)) AS prd");
         List<Product> sales = MANAGER.createNativeQuery(jpql, Product.class).setParameter("branchNumber", branchNumber).getResultList();
         return sales;
     }
