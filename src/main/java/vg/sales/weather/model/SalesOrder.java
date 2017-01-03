@@ -31,9 +31,6 @@ public class SalesOrder implements Serializable {
     private Date movingDate; //datamovimento  
     @Column(name = "situacaopedidoloja")
     private String shopRequestSituation; //situacaopedidoloja  
-//    @Column(name = "situacaopedidoloja")
-//    @OneToMany(mappedBy = "idSaleOrder", targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Product> products;
 
    
     public SalesOrder() {

@@ -17,24 +17,18 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
     
     static {
     MANAGER = Persistence.createEntityManagerFactory("PostgresDS").createEntityManager();
-    }
-    
-//@Override
-//    public List<SalesOrder> listSalesOrder(Integer branchNumber) {        
-//        Query query = MANAGER.createQuery("SELECT u from pedidovenda u WHERE u.branchNumber = 10001 AND u.shopRequestSituation=1");
-//        return query.getResultList();
-//    }    
+    }  
     
     @Override
     public List<SalesOrder> listSalesOrder(Integer branchNumber) {
         this.jpql = ("SELECT DISTINCT\n" +
 "\n" +
-"	pedido.idpedidovenda,\n" +
-"	pedido.numerofilial,\n" +
-"	pedido.fantasia, \n" +
+"	COALESCE(pedido.idpedidovenda,0) as idpedidovenda,\n" +
+"	COALESCE(pedido.numerofilial,0) as numerofilial,\n" +
+"	COALESCE(pedido.fantasia,'ERRO') as fantasia, \n" +
 "	pedido.datamovimento,\n" +
-"	pedido.nome,\n" +
-"	pedido.situacaopedidoloja           \n" +
+"	COALESCE(pedido.nome,'ERRO') as nome,\n" +
+"	COALESCE(pedido.situacaopedidoloja,'ERRO') as situacaopedidoloja  \n" +
 "\n" +
 "	FROM (SELECT 	i.idpedidovenda,\n" +
 "	f.numerofilial,\n" +
@@ -87,24 +81,24 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
     @Override
     public List<Product> listSalesProducts(Integer branchNumber) {
         this.jpql = ("SELECT\n" +
-"	prd.idpedidovenda,\n" +
-"    prd.idproduto,\n" +
-"	prd.desc_prod,\n" +
-"	prd.quantidade,\n" +
-"	prd.situacao_item,\n" +
-"	prd.entregar, \n" +
-"	prd.idmapacarga,\n" +
-"	prd.situacaomapacarga,\n" +
-"	prd.idmapaentrega,\n" +
+"	COALESCE(prd.idpedidovenda,0) as idpedidovenda,\n" +
+"       COALESCE(prd.idproduto,0) as idproduto,\n" +
+"	COALESCE(prd.desc_prod,'ERRO') as desc_prod,\n" +
+"	COALESCE(prd.quantidade,0) as quantidade,\n" +
+"	COALESCE(prd.situacao_item,'NADA CONSTA') as situacao_item,\n" +
+"	COALESCE(prd.entregar,'NÃO') as entregar, \n" +
+"	COALESCE(prd.idmapacarga,0) as idmapacarga,\n" +
+"	COALESCE(prd.situacaomapacarga,'NADA CONSTA') as situacaomapacarga,\n" +
+"	COALESCE(prd.idmapaentrega,0) as idmapaentrega,\n" +
 "	prd.previsaofaturamento,\n" +
-"	prd.situacao_entrega,\n" +
-"	prd.montagem,\n" +
-"	prd.idmapamontagem,\n" +
+"	COALESCE(prd.situacao_entrega, 'NADA CONSTA') as situacao_entrega,\n" +
+"	COALESCE(prd.montagem,'NADA CONSTA') as montagem,\n" +
+"	COALESCE(prd.idmapamontagem,0) as idmapamontagem,\n" +
 "	prd.previsaomontagem,\n" +
-"	prd.situacaomontagem,\n" +
-"	prd.filialreserva,\n" +
-"	prd.idsituacaoentrega,\n" +
-"	prd.idsituacaomontagem\n" +
+"	COALESCE(prd.situacaomontagem,'NADA CONSTA') as situacaomontagem,\n" +
+"	COALESCE(prd.filialreserva,prd.numerofilial) as filialreserva,\n" +
+"	COALESCE(prd.idsituacaoentrega,'0') as idsituacaoentrega,\n" +
+"	COALESCE(prd.idsituacaomontagem,'0') as idsituacaomontagem\n" +
 "                  \n" +
 "	FROM (SELECT 	i.idpedidovenda,\n" +
 "	f.numerofilial,\n" +
