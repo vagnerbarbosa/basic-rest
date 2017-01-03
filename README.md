@@ -14,7 +14,6 @@ Technologies:
 
 - JAX-RS 2.0
 - Jersey
-- AngularJS
 
 
 
