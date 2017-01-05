@@ -30,7 +30,13 @@ public class SalesOrder implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date movingDate; //datamovimento  
     @Column(name = "situacaopedidoloja")
-    private String shopRequestSituation; //situacaopedidoloja  
+    private String shopRequestSituation; //situacaopedidoloja 
+    @Column(name = "cidade")
+    private String city;
+    @Column(name = "bairro")
+    private String neighborhood;
+    @Column(name = "dias")
+    private Integer days;
 
    
     public SalesOrder() {
@@ -90,16 +96,31 @@ public class SalesOrder implements Serializable {
         this.shopRequestSituation = shopRequestSituation;
     }
 
-//    @XmlElement
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
-    
-    
+    @XmlElement
+    public String getCity() {
+        return city;
+    }
 
- 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @XmlElement
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    @XmlElement
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
+     
 }
