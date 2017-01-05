@@ -99,7 +99,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "COALESCE(prd.montagem,'') as montagem,\n" +
 "COALESCE(prd.idmapamontagem,0) as idmapamontagem,\n" +
 "prd.previsaomontagem,\n" +
-"CASE WHEN prd.montagem LIKE 'NÃO' THEN COALESCE(prd.situacaomontagem,'Não se Aplica') ELSE COALESCE(prd.situacaomontagem,'A Executar') END AS situacaomontagem,\n" +
+"CASE WHEN prd.montagem LIKE 'NÃO' THEN COALESCE(prd.situacaomontagem,'Não se Aplica') ELSE COALESCE(prd.situacaomontagem,'Montagem Pendente') END AS situacaomontagem,\n" +
 "COALESCE(prd.filialreserva,prd.numerofilial) as filialreserva,\n" +
 "COALESCE(prd.idsituacaoentrega,'0') as idsituacaoentrega,\n" +
 "COALESCE(prd.idsituacaomontagem,'0') as idsituacaomontagem,\n" +
@@ -123,7 +123,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "CASE WHEN i.montagem = 1 THEN 'SIM' ELSE 'NÃO' END AS montagem,\n" +
 "mmi.idmapamontagem,\n" +
 "CASE WHEN i.montagem = 1 THEN i.previsaomontagem ELSE NULL END AS  previsaomontagem,\n" +
-"smm.descricao AS situacaomontagem,\n" +
+"CASE WHEN smm.descricao LIKE 'A Executar' THEN 'Montagem Pendente' END AS situacaomontagem,\n" +
 "COALESCE(fir.numerofilial,f.numerofilial) AS filialreserva,\n" +
 "spe.descricao AS situacaopedidoloja,\n" +
 "REPLACE( CASE WHEN pel.idsituacaopedidoloja = 4 AND COALESCE(pel.idmapacargaloja,0) = 0 \n" +
