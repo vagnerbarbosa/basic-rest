@@ -1,62 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br" >
-
+<html lang="pt-br">
     <head>
-        <title>CodeBySide</title>
-        <script>
-            var address = "http://www.google.com";
-
-            var t1 = Date.now();
-            var t2;
-
-            var max = 100000;
-            var failed = false;
-
-            var httpReq = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-            if (httpReq === null) {
-                console.log("Error: XMLHttpRequest failed to initiate.");
-            }
-            httpReq.onreadystatechange = function () {
-
-                var failTimer = setTimeout(function () {
-                    failed = true;
-                    httpReq.abort();
-                }, max);
-
-                if (httpReq.readyState === 4) {  //Completed loading
-                    if (!failed && (httpReq.status === 200 || httpReq.status === 0)) {
-
-                        clearTimeout(failTimer);
-
-                        t2 = Date.now();
-
-                        var timeTotal = (t2 - t1);
-                        if (timeTotal > max) {
-                            onFail();
-                        } else {
-                            onSuccess(timeTotal);
-                        }
-
-                    } else {  //Otherwise, there was a problem while loading
-                        console.log("Error " + httpReq.status + " has occurred.");
-                        onFail();
-                    }
-                }
-            };
-            try {
-                httpReq.open("GET", address, true);
-                httpReq.send(null);
-
-            } catch (e) {
-                console.log("Error retrieving data httpReq. Some browsers only accept cross-domain request with HTTP.");
-                onFail();
-            }</script>      
-
+        <title>Sales Weather Rest-WebService</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script language="JavaScript">
+            window.location = "./webservice/toner";
+        </script>      
     </head>
-
     <body>
-
-
+        <noscript> 
+        Se não for direcionado automaticamente, clique <a href="./webservice/toner">aqui</a>. 
+        </noscript>        
     </body>
-
 </html>

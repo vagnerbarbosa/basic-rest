@@ -48,7 +48,27 @@ public class SalesResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String returnVersion() {
-        return "<p>Version: " + API_VERSION + "</p>";
+        return "<!DOCTYPE html>\n"
+                + "<html lang=\"pt-br\">\n"
+                + "    <head>\n"
+                + "        <title>Toner WebService</title>\n"
+                + "        \n"
+                + "        <meta charset=\"utf-8\">\n"
+                + "        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
+                + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+                + "        <link rel=\"stylesheet\" href=\"/toners-webservice/bower_components/bootstrap/dist/css/bootstrap.min.css\">        \n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "    <div class=\"page-header\">\n"                 
+                + "        <h1 class=\"text-center\"> \n"
+                + "        Sales Weather Rest-WebService <small>v" + API_VERSION
+                + "        </small></h1>\n"
+                + "        \n"
+                + "        <script type=\"text/javascript\" src=\"/toners-webservice/bower_components/jquery/dist/jquery.slim.min.js\"></script>\n"
+                + "        <script type=\"text/javascript\" src=\"/toners-webservice/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>\n"
+                + "        </div>\n"                               
+                + "    </body>\n"
+                + "</html>";
     }
 
     @GET
