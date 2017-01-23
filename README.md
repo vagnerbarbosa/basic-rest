@@ -1,5 +1,5 @@
 # sales-weather
-Real-Time Sales Check System
+Sales Weather Rest-WebService
 
 ----------------------------------------------------------------------------
 
