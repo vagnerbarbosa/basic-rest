@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import vg.sales.weather.datasource.SalesOrderDataSetImpl;
 import vg.sales.weather.model.Product;
 import vg.sales.weather.model.SalesOrder;
-import static vg.sales.weather.webservice.SalesResource.API_VERSION;
 
 /**
  *
@@ -44,7 +43,7 @@ public class SalesOrderResource {
                 + "        <meta charset=\"utf-8\">\n"
                 + "        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
                 + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-                + "        <link rel=\"stylesheet\" href=\"/toners-webservice/bower_components/bootstrap/dist/css/bootstrap.min.css\">        \n"
+                + "        <link rel=\"stylesheet\" href=\"/sales-weather/bower_components/bootstrap/dist/css/bootstrap.min.css\">        \n"
                 + "    </head>\n"
                 + "    <body>\n"
                 + "    <div class=\"page-header\">\n"                 
@@ -52,8 +51,8 @@ public class SalesOrderResource {
                 + "        Sales Weather Rest-WebService <small>v" + API_VERSION
                 + "        </small></h1>\n"
                 + "        \n"
-                + "        <script type=\"text/javascript\" src=\"/toners-webservice/bower_components/jquery/dist/jquery.slim.min.js\"></script>\n"
-                + "        <script type=\"text/javascript\" src=\"/toners-webservice/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>\n"
+                + "        <script type=\"text/javascript\" src=\"/sales-weather/bower_components/jquery/dist/jquery.slim.min.js\"></script>\n"
+                + "        <script type=\"text/javascript\" src=\"/sales-weather/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>\n"
                 + "        </div>\n"                               
                 + "    </body>\n"
                 + "</html>";

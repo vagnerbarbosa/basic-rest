@@ -21,8 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement(name = "product")
 public class Product implements Serializable {
-       
+    
     @Id
+    @Column(name = "iditembase")
+    private Integer itemBaseId;
     @Column(name = "idproduto")
     private Integer prodId; //idproduto
     @Column(name="filialreserva")
@@ -60,6 +62,15 @@ public class Product implements Serializable {
     @Column(name="idpedidovenda")
     private Integer idSaleOrder;
 
+    @XmlElement
+    public Integer getItemBaseId() {
+        return itemBaseId;
+    }
+
+    public void setItemBaseId(Integer itemBaseId) {
+        this.itemBaseId = itemBaseId;
+    }
+    
     @XmlElement
     public Integer getProdId() {
         return prodId;
@@ -212,5 +223,10 @@ public class Product implements Serializable {
     public void setIdSaleOrder(Integer idSaleOrder) {
         this.idSaleOrder = idSaleOrder;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "prodId=" + prodId + ", branchNumberToInvoice=" + branchNumberToInvoice + ", prodDescription=" + prodDescription + ", amount=" + amount + ", itemSituation=" + itemSituation + ", deliver=" + deliver + ", idChargerMap=" + idChargerMap + ", situationChargerMap=" + situationChargerMap + ", invoicePredictionDate=" + invoicePredictionDate + ", deliverSituation=" + deliverSituation + ", montage=" + montage + ", idMontageMap=" + idMontageMap + ", predictionMontageDate=" + predictionMontageDate + ", montageSituation=" + montageSituation + ", idDeliverySituation=" + idDeliverySituation + ", idMontageSituation=" + idMontageSituation + ", idSaleOrder=" + idSaleOrder + '}';
+    }    
      
 }

@@ -1,0 +1,25 @@
+{
+  "name": "sales-weather",
+  "homepage": "https://github.com/vagnerbarbosa/sales-weather",
+  "authors": [
+    "Vagner Barbosa <contato@vagnerbarbosa.com>"
+  ],
+  "description": "Termômeto de Vendas Rest WebService",
+  "main": "index.html",
+  "keywords": [
+    "webservice"
+  ],
+  "license": "THE BEER-WARE LICENSE (Revision 42)",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}
