@@ -12,8 +12,10 @@ Real-Time Sales Check System
 
 Technologies:
 
-- JAX-RS 2.0
+- JAX-RS 
 - Jersey
+- Bootstrap
+- Bower
 
 
 
