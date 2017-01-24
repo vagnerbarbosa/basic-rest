@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vg.sales.weather.model;
 
 import java.io.Serializable;
@@ -226,7 +221,6 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "prodId=" + prodId + ", branchNumberToInvoice=" + branchNumberToInvoice + ", prodDescription=" + prodDescription + ", amount=" + amount + ", itemSituation=" + itemSituation + ", deliver=" + deliver + ", idChargerMap=" + idChargerMap + ", situationChargerMap=" + situationChargerMap + ", invoicePredictionDate=" + invoicePredictionDate + ", deliverSituation=" + deliverSituation + ", montage=" + montage + ", idMontageMap=" + idMontageMap + ", predictionMontageDate=" + predictionMontageDate + ", montageSituation=" + montageSituation + ", idDeliverySituation=" + idDeliverySituation + ", idMontageSituation=" + idMontageSituation + ", idSaleOrder=" + idSaleOrder + '}';
-    }    
-     
+        return "Product{" + "itemBaseId=" + itemBaseId + ", prodId=" + prodId + ", branchNumberToInvoice=" + branchNumberToInvoice + ", prodDescription=" + prodDescription + ", amount=" + amount + ", itemSituation=" + itemSituation + ", deliver=" + deliver + ", idChargerMap=" + idChargerMap + ", situationChargerMap=" + situationChargerMap + ", invoicePredictionDate=" + invoicePredictionDate + ", deliverSituation=" + deliverSituation + ", montage=" + montage + ", idMontageMap=" + idMontageMap + ", predictionMontageDate=" + predictionMontageDate + ", montageSituation=" + montageSituation + ", idDeliverySituation=" + idDeliverySituation + ", idMontageSituation=" + idMontageSituation + ", idSaleOrder=" + idSaleOrder + '}';
+    }     
 }

@@ -125,7 +125,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "	sma.descricao AS situacaomapacarga,\n" +
 "	men.idmapaentrega,\n" +
 "	CASE WHEN i.previsaoentrega IS NULL THEN pv.previsaofaturamento ELSE i.previsaoentrega END AS previsaofaturamento,\n" +
-"	CASE WHEN i.entregar <> 1 AND sment.idsituacaoentrega IS NULL THEN 'Não Há Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IS NULL THEN 'Entrega Pendente' WHEN sment.idsituacaoentrega IN (1,2,4,5) THEN 'Saiu Para Entrega' ELSE ('Entregue a ' || (current_date - i.datamovimento) || ' dias') END AS situacao_entrega,\n" +
+"	CASE WHEN i.entregar <> 1 AND sment.idsituacaoentrega IS NULL THEN 'Não Há Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IS NULL THEN 'Entrega Pendente' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (1,2) THEN 'Saiu Para Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (4,5) THEN 'Não Entregue' ELSE ('Entregue a ' || (current_date - i.datamovimento) || ' dias') END AS situacao_entrega,\n" +
 "	CASE WHEN i.montagem = 1 THEN 'SIM' ELSE 'NÃO' END AS montagem,\n" +
 "	mmi.idmapamontagem,\n" +
 "	CASE WHEN i.montagem = 1 THEN i.previsaomontagem ELSE NULL END AS  previsaomontagem,\n" +
@@ -156,8 +156,10 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "                            LEFT JOIN glb.filial AS fir ON (fir.idfilial = pel.idfilial)\n" +
 "                            INNER JOIN glb.endereco AS ende ON (pv.idcnpj_cpf = ende.idcnpj_cpf)\n" +
 "                            INNER JOIN glb.cidade AS city ON (ende.idcidade = city.idcidade)\n" +
+"                            INNER JOIN glb.produtograde pg ON (pg.idproduto = p.idproduto)\n" +
+"                            INNER JOIN sis.tipoproduto AS tp ON (tp.idtipoproduto = pg.idtipoproduto)\n" +
 "                            \n" +
-"							WHERE (f.numerofilial IN (:branchNumber)) AND ( (sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem <> 2) OR (sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem is NULL) OR (sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND sment.idsituacaoentrega is NULL AND smm.idsituacaomontagem is NULL) ) ) AS prd");
+"							WHERE ( f.numerofilial IN (:branchNumber) AND sip.idsituacaopedidovenda NOT IN (1, 2, 5, 6, 7, 8, 9) AND tp.idtipoproduto = 5 AND ( (sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem <> 2) OR (sment.idsituacaoentrega <> 3 AND smm.idsituacaomontagem is NULL) OR (sment.idsituacaoentrega is NULL AND smm.idsituacaomontagem is NULL) ) ) ) AS prd");
         List<Product> sales = MANAGER.createNativeQuery(jpql, Product.class).setParameter("branchNumber", branchNumber).getResultList();
         return sales;
     }
