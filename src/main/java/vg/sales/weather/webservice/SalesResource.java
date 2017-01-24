@@ -1,7 +1,5 @@
 package vg.sales.weather.webservice;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +12,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.jboss.resteasy.annotations.GZIP;
+
+import org.jboss.resteasy.annotations.cache.Cache;
 import vg.sales.weather.datasource.SalesDataSetImpl;
 import vg.sales.weather.model.Sales;
 
@@ -26,19 +27,17 @@ public class SalesResource {
     
     static final String API_VERSION = "1.01A rev.18729";    
     static String xmlString = null;
-    ObjectMapper mapper = new ObjectMapper();
     SalesDataSetImpl salesDataSet;
 
     public SalesResource() {
-        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
-        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         this.salesDataSet = new SalesDataSetImpl();
     }
     
     @Path("/version")
     @GET
     @Produces(MediaType.TEXT_HTML)
+    @Cache(mustRevalidate = true)
+    @GZIP
     public String returnVersion() {
         return "<!DOCTYPE html>\n"
                 + "<html lang=\"pt-br\">\n"
@@ -65,6 +64,8 @@ public class SalesResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Cache(mustRevalidate = true)
+    @GZIP
     public ArrayList<Sales> getSales() {
         ArrayList<Sales> salesList = null;
 

@@ -108,7 +108,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "prd.filialreserva, \n" +
 "prd.idsituacaoentrega, \n" +
 "prd.idsituacaomontagem                     \n" +
-"	FROM (SELECT DISTINCT i.iditembase,\n" +
+"	FROM (SELECT DISTINCT CAST(CAST(i.idfilial AS text)||CAST(i.iditembase AS text) AS numeric(24,0)) as iditembase,\n" +
 "    i.idpedidovenda,\n" +
 "	f.numerofilial,\n" +
 "	f.fantasia,\n" +
