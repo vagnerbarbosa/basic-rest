@@ -125,7 +125,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "	sma.descricao AS situacaomapacarga,\n" +
 "	men.idmapaentrega,\n" +
 "	CASE WHEN i.previsaoentrega IS NULL THEN pv.previsaofaturamento ELSE i.previsaoentrega END AS previsaofaturamento,\n" +
-"	CASE WHEN i.entregar <> 1 AND sment.idsituacaoentrega IS NULL THEN 'Não Há Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IS NULL THEN 'Entrega Pendente' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (1,2) THEN 'Saiu Para Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (4,5) THEN 'Não Entregue' ELSE ('Entregue a ' || (current_date - i.datamovimento) || ' dias') END AS situacao_entrega,\n" +
+"	CASE WHEN i.entregar = 1 AND sment.idsituacaoentrega = 2 THEN 'Entrega Pendente' WHEN i.entregar <> 1 AND sment.idsituacaoentrega IS NULL THEN 'Não Há Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IS NULL THEN 'Entrega Pendente' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (1) AND sma.idsituacaomapacarga <> 3 THEN 'Saiu Para Entrega' WHEN i.entregar = 1 AND sment.idsituacaoentrega IN (4,5) THEN 'Não Entregue' ELSE ('Entregue a ' || ((current_date - i.datamovimento)+1) || ' dias') END AS situacao_entrega,\n" +
 "	CASE WHEN i.montagem = 1 THEN 'SIM' ELSE 'NÃO' END AS montagem,\n" +
 "	mmi.idmapamontagem,\n" +
 "	CASE WHEN i.montagem = 1 THEN i.previsaomontagem ELSE NULL END AS  previsaomontagem,\n" +
@@ -163,7 +163,5 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
         List<Product> sales = MANAGER.createNativeQuery(jpql, Product.class).setParameter("branchNumber", branchNumber).getResultList();
         return sales;
     }
-
-    
 
 }
