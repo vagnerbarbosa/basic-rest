@@ -42,7 +42,7 @@ public class SalesResource {
         return "<!DOCTYPE html>\n"
                 + "<html lang=\"pt-br\">\n"
                 + "    <head>\n"
-                + "        <title>Toner WebService</title>\n"
+                + "        <title>Sales Weather Rest-WebService</title>\n"
                 + "        \n"
                 + "        <meta charset=\"utf-8\">\n"
                 + "        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
