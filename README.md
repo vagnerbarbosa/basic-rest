@@ -12,8 +12,7 @@ Sales Weather Rest-WebService
 
 Technologies:
 
-- JAX-RS 
-- Jersey
+- RESTEasy
 - Bootstrap
 - Bower
 
