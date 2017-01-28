@@ -12,7 +12,7 @@ import vg.sales.weather.model.Product;
  */
 public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 
-    private static EntityManager MANAGER;
+    private static final EntityManager MANAGER;
     private String jpql;
     
     static {

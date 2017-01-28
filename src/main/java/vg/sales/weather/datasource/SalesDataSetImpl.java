@@ -12,7 +12,7 @@ import vg.sales.weather.model.Sales;
  */
 public class SalesDataSetImpl implements SalesDataSet {
 
-    private EntityManager MANAGER;
+    private final EntityManager MANAGER;
 
     public SalesDataSetImpl() {
         this.MANAGER = Persistence.createEntityManagerFactory("PostgresDS").createEntityManager();
