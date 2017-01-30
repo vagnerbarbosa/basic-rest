@@ -71,7 +71,7 @@ public class SalesOrderDataSetImpl implements SalesOrderDataSet {
 "                            LEFT JOIN rst.mapaentreganota men ON (men.idfilialnota = n.idfilial AND men.idregistronota = n.idregistronota)\n" +
 "                            LEFT JOIN sis.situacaomapaentrega sment ON (sment.idsituacaoentrega = men.idsituacaoentrega)\n" +
 "                            LEFT JOIN rst.mapamontagemitem mmi ON (mmi.idfilialitembase = CASE WHEN i.idfilial <> i.idfilialafaturar THEN iff.idfilial ELSE i.idfilial END AND mmi.iditembase = CASE WHEN i.idfilial <> i.idfilialafaturar THEN iff.iditembase ELSE i.iditembase END)\n" +
-"							LEFT JOIN sis.situacaomapamontagem smm ON (smm.idsituacaomontagem = mmi.idsituacaomontagem)\n" +
+"                            LEFT JOIN sis.situacaomapamontagem smm ON (smm.idsituacaomontagem = mmi.idsituacaomontagem)\n" +
 "                            LEFT JOIN sis.tipomontagem tim ON (tim.idtipomontagem = mmi.idtipomontagem)                                                            \n" +
 "                            LEFT JOIN glb.filial f ON (f.idfilial = i.idfilial)\n" +
 "                            LEFT JOIN glb.filial fat ON (fat.idfilial = i.idfilialafaturar)\n" +
