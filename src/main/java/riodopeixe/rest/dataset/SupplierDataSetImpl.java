@@ -1,9 +1,17 @@
 package riodopeixe.rest.dataset;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
 import riodopeixe.rest.model.Supplier;
 
 /**
@@ -17,10 +25,12 @@ import riodopeixe.rest.model.Supplier;
  */
 public class SupplierDataSetImpl implements SupplierDataSet {
 
-    private static final EntityManager MANAGER;
+    private final EntityManager MANAGER;
+    private final TransactionManager TRANSACTION;
 
-    static {
-        MANAGER = Persistence.createEntityManagerFactory("sisnota").createEntityManager();
+    public SupplierDataSetImpl() {
+        MANAGER = Persistence.createEntityManagerFactory("SisNota").createEntityManager();
+        this.TRANSACTION = com.arjuna.ats.jta.TransactionManager.transactionManager();
     }
 
     /**
@@ -29,11 +39,15 @@ public class SupplierDataSetImpl implements SupplierDataSet {
      */
     @Override
     public void setSupplier(Supplier supplier) {        
-        MANAGER.getTransaction().begin();
+        try {        
+        TRANSACTION.begin();
         MANAGER.flush();
         MANAGER.clear();
         MANAGER.persist(supplier);
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
 
     /**
@@ -42,11 +56,16 @@ public class SupplierDataSetImpl implements SupplierDataSet {
      * @return
      */
     @Override
-    public Supplier getSupplierByCnpj(String cnpj) {        
-        MANAGER.getTransaction().begin();
-        Query query = MANAGER.createQuery("SELECT u FROM Supplier u WHERE u.cnpj = :cnpj");
+    public Supplier getSupplierByCnpj(String cnpj) {   
+        Query query = null;
+        try {
+        TRANSACTION.begin();
+        query = MANAGER.createQuery("SELECT u FROM Supplier u WHERE u.cnpj = :cnpj");
         query.setParameter("cnpj", cnpj);
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }  
         return (Supplier) query.getSingleResult();
     }
 
@@ -55,10 +74,15 @@ public class SupplierDataSetImpl implements SupplierDataSet {
      * @return
      */
     @Override
-    public List<Supplier> getSuppliers() {         
-        MANAGER.getTransaction().begin();
-        Query query = MANAGER.createQuery("SELECT u FROM Supplier u");
-        MANAGER.getTransaction().commit();        
+    public List<Supplier> getSuppliers() {
+        Query query = null;
+        try {        
+        TRANSACTION.begin();
+        query = MANAGER.createQuery("SELECT u FROM Supplier u");
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }       
         List<Supplier> suppliers = query.getResultList();
         return suppliers;
     }
@@ -69,9 +93,13 @@ public class SupplierDataSetImpl implements SupplierDataSet {
      */
     @Override
     public void updateSupplier(Supplier supplier) {
-        MANAGER.getTransaction().begin();
+        try {        
+        TRANSACTION.begin();
         MANAGER.merge(supplier);
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -84,17 +112,25 @@ public class SupplierDataSetImpl implements SupplierDataSet {
 
     @Override
     public void removeSupplier(Long id) {
-        MANAGER.getTransaction().begin();
+        try {        
+        TRANSACTION.begin();
         MANAGER.remove(MANAGER.find(Supplier.class, id));
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void removeSupplierByCnpj(String cnpj) {
-        MANAGER.getTransaction().begin();
+        try {        
+        TRANSACTION.begin();
         Query query = MANAGER.createQuery("DELETE FROM Supplier f WHERE f.cnpj = :cnpj");
         query.setParameter("cnpj", cnpj).executeUpdate();        
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

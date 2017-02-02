@@ -2,9 +2,17 @@ package riodopeixe.rest.dataset;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
 import riodopeixe.rest.model.Invoice;
 
 /**
@@ -18,10 +26,12 @@ import riodopeixe.rest.model.Invoice;
  */
 public class InvoiceDataSetImpl implements InvoiceDataSet {
 
-    private static final EntityManager MANAGER;
+    private final EntityManager MANAGER;
+    private final TransactionManager TRANSACTION;
 
-    static {
-        MANAGER = Persistence.createEntityManagerFactory("sisnota").createEntityManager();
+    public InvoiceDataSetImpl() {
+        MANAGER = Persistence.createEntityManagerFactory("SisNota").createEntityManager();
+        this.TRANSACTION = com.arjuna.ats.jta.TransactionManager.transactionManager();
     }
 
     /**
@@ -30,11 +40,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public void setInvoice(Invoice invoice) {
-        MANAGER.getTransaction().begin();
-        MANAGER.flush();
-        MANAGER.clear();
+        try {        
+        TRANSACTION.begin();
         MANAGER.persist(invoice);
-        MANAGER.getTransaction().commit();
+        MANAGER.flush();
+        MANAGER.clear();        
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     /**
@@ -43,9 +57,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public void removeInvoice(Integer id) {
-        MANAGER.getTransaction().begin();
+        try {
+        TRANSACTION.begin();
         MANAGER.remove(MANAGER.find(Invoice.class, id));
-        MANAGER.getTransaction().commit();
+        MANAGER.flush();
+        MANAGER.clear();         
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }                
     }
 
     /**
@@ -55,10 +75,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public Invoice getInvoiceById(Integer id) {
-        MANAGER.getTransaction().begin();
-        Invoice invoice = MANAGER.find(Invoice.class, id);
-        MANAGER.getTransaction().commit();
-        return invoice;
+        Invoice invoice = null;
+        try {        
+        TRANSACTION.begin();
+        invoice = MANAGER.find(Invoice.class, id);
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return invoice;        
     }
 
     /**
@@ -68,10 +93,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public Invoice getInvoiceByImei(String imei) {
-        MANAGER.getTransaction().begin();
+        List<Invoice> nfs = null;
+        try {        
+        TRANSACTION.begin();
         String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, imei_por_nota.imei FROM imei_por_nota INNER JOIN notafiscal ON (notafiscal.id = imei_por_nota.invoice_id) INNER JOIN fornecedor ON (notafiscal.id_fornecedor = fornecedor.id) WHERE imei_por_nota.invoice_id = (SELECT notafiscal.id FROM notafiscal INNER JOIN imei_por_nota ON (notafiscal.id = imei_por_nota.invoice_id) WHERE imei_por_nota.imei iLike :imei)";
-        List<Invoice> nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("imei", imei).getResultList();
-        MANAGER.getTransaction().commit();
+        nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("imei", imei).getResultList();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }        
         Invoice nf = new Invoice();
         nf.setId(nfs.get(0).getId());
         nf.setNumber(nfs.get(0).getNumber());
@@ -88,10 +118,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
 
     @Override
     public Invoice getInvoiceByNumber(Integer number) {
-        MANAGER.getTransaction().begin();
+        List<Invoice> nfs = null;
+        try {        
+        TRANSACTION.begin();
         String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, imei_por_nota.imei FROM imei_por_nota INNER JOIN notafiscal ON (notafiscal.id = imei_por_nota.invoice_id) INNER JOIN fornecedor ON (notafiscal.id_fornecedor = fornecedor.id) WHERE notafiscal.numero = :numero";
-        List<Invoice> nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("numero", number).getResultList();
-        MANAGER.getTransaction().commit();
+        nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("numero", number).getResultList();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }          
         Invoice nf = new Invoice();
         nf.setId(nfs.get(0).getId());
         nf.setNumber(nfs.get(0).getNumber());
@@ -112,10 +147,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public List<Invoice> getInvoices() {
-        MANAGER.getTransaction().begin();
+        List<Invoice> invoice = null;
+        try {        
+        TRANSACTION.begin();
         Query query = MANAGER.createQuery("SELECT u FROM Invoice u");
-        MANAGER.getTransaction().commit();
-        List<Invoice> invoice = query.getResultList();
+        invoice = query.getResultList();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }          
         return invoice;
     }
 
@@ -125,9 +165,13 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public void updateInvoice(Invoice invoice) {
-        MANAGER.getTransaction().begin();
+        try {          
+        TRANSACTION.begin();
         MANAGER.merge(invoice);
-        MANAGER.getTransaction().commit();
+        TRANSACTION.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }           
     }
 
     @Override

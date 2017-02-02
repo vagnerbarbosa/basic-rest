@@ -34,23 +34,20 @@
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="sisnota" transaction-type="RESOURCE_LOCAL">
-    <!-- provedor/implementacao do JPA -->
+  <persistence-unit name="SisNota" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <!-- entidades mapeadas -->
-    <class>riodopeixe.rest.model.Supplier</class>
+    <jta-data-source>java:/SisNota</jta-data-source>
+     <class>riodopeixe.rest.model.Supplier</class>
     <class>riodopeixe.rest.model.Invoice</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <!-- dados da conexao -->
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.19.250:5432/sis2"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>
-      <property name="javax.persistence.jdbc.password" value="123"/>
-      <!--  propriedades do hibernate -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform"/>
+      <property name="hibernate.archive.autodetection" value="class"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+      <property name="javax.persistence.schema-generation.database.action" value="none"/>
     </properties>
   </persistence-unit>
 </persistence>

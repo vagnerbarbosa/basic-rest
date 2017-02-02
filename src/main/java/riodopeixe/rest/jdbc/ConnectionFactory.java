@@ -27,7 +27,7 @@ public class ConnectionFactory {
             if (instance == null) {
                 instance = new ConnectionFactory();
                 Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-                connection = DriverManager.getConnection("jdbc:ucanaccess://D:/Antigos/Subsolo/DADOS-Lite.MDB");
+                connection = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Administrador/Documents/DevZone/SisNota/DADOS-Lite.MDB");
             }
         } catch (ClassNotFoundException e) {
             throw new ConnectionException("Driver não encontrado");
