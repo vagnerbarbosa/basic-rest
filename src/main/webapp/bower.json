@@ -1,10 +1,10 @@
 {
-  "name": "sales-weather",
+  "name": "riodopeixe-rest",
   "homepage": "https://github.com/vagnerbarbosa/sales-weather",
   "authors": [
     "Vagner Barbosa <contato@vagnerbarbosa.com>"
   ],
-  "description": "Termômeto de Vendas Rest WebService",
+  "description": "Rio do Peixe Rest WebService",
   "main": "index.html",
   "keywords": [
     "webservice"
