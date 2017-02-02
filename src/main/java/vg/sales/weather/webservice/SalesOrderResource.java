@@ -18,44 +18,14 @@ import vg.sales.weather.model.SalesOrder;
  */
 @Path("/sales-order")
 public class SalesOrderResource {
-    
-    static final String API_VERSION = "1.01A rev.18729";    
+       
     static String xmlString = null;
     SalesOrderDataSetImpl salesOrderDataSet;
 
     public SalesOrderResource() {
         this.salesOrderDataSet = new SalesOrderDataSetImpl();
     }
-    
-    @Path("/version")
-    @GET
-    @Produces(MediaType.TEXT_HTML)
-    @Cache(mustRevalidate = true)
-    @GZIP
-    public String returnVersion() {
-        return "<!DOCTYPE html>\n"
-                + "<html lang=\"pt-br\">\n"
-                + "    <head>\n"
-                + "        <title>Sales Weather Rest-WebService</title>\n"
-                + "        \n"
-                + "        <meta charset=\"utf-8\">\n"
-                + "        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
-                + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-                + "        <link rel=\"stylesheet\" href=\"/sales-weather/bower_components/bootstrap/dist/css/bootstrap.min.css\">        \n"
-                + "    </head>\n"
-                + "    <body>\n"
-                + "    <div class=\"page-header\">\n"                 
-                + "        <h1 class=\"text-center\"> \n"
-                + "        Sales Weather Rest-WebService <small>v" + API_VERSION
-                + "        </small></h1>\n"
-                + "        \n"
-                + "        <script type=\"text/javascript\" src=\"/sales-weather/bower_components/jquery/dist/jquery.slim.min.js\"></script>\n"
-                + "        <script type=\"text/javascript\" src=\"/sales-weather/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>\n"
-                + "        </div>\n"                               
-                + "    </body>\n"
-                + "</html>";
-    }
-    
+       
     @Path("/{branchNumber}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
