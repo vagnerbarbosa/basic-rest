@@ -1,5 +1,7 @@
 package riodopeixe.rest.resource;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,11 +36,15 @@ public class InvoiceResource {
     static String xmlString = null;
     InvoiceDataSet invoiceDataSet;
     SupplierDataSet supplierDataSet;
+    ObjectMapper mapper = new ObjectMapper();
 
     /**
      *
      */
     public InvoiceResource() {
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
         this.invoiceDataSet = new InvoiceDataSetImpl();
         this.supplierDataSet = new SupplierDataSetImpl();
     }

@@ -1,5 +1,6 @@
 package riodopeixe.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="notafiscal")
 @XmlRootElement(name = "notafiscal")
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "seq_gen", sequenceName = "nota_seq", initialValue = 548, allocationSize = 1)
 public class Invoice implements Serializable {
 

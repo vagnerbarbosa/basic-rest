@@ -1,5 +1,6 @@
 package riodopeixe.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "seq_gen2", sequenceName = "fornecedor_seq", initialValue = 1, allocationSize = 20)
 public class Supplier implements Serializable {
     @Id
