@@ -18,6 +18,7 @@ public class ImeSaleDataSetImpl implements ImeiSaleDataSet {
 
     @Override
     public ImeiSale imeiSaleCheck(String imei) {
+        String imeiCheck = '%' + imei + '%';
         String jpql = ("SELECT \n" +
                         "fl.numerofilial,\n" +
                         "pv.idpedidovenda,\n" +
@@ -29,7 +30,7 @@ public class ImeSaleDataSetImpl implements ImeiSaleDataSet {
                         "INNER JOIN rst.pedidovenda pv ON (pv.idpedidovenda = ib.idpedidovenda AND pv.idfilial = ib.idfilial)\n" +
                         "INNER JOIN glb.filial fl ON (pv.idfilial = fl.idfilial)\n" +
                         "WHERE ns.numeroserie iLIKE :imei");
-        ImeiSale imeiSale = (ImeiSale) MANAGER.createNativeQuery(jpql, ImeiSale.class).setParameter("imei", imei).getSingleResult();
+        ImeiSale imeiSale = (ImeiSale) MANAGER.createNativeQuery(jpql, ImeiSale.class).setParameter("imei", imeiCheck).getSingleResult();
         return imeiSale;
     }
     
