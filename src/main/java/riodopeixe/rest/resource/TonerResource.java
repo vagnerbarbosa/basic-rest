@@ -67,7 +67,7 @@ public class TonerResource {
     @POST
     @GZIP
     @Cache(mustRevalidate = true, maxAge = 3600)
-    @Path("adicionar/{adicionar}")
+    @Path("/adicionar")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void persistirToner(Toner toner) {
         System.out.println("Persistindo toner...");

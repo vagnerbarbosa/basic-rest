@@ -63,6 +63,7 @@ public class TonerDataSetImpl implements TonerDataSet {
     public void pesistirToner(Toner toner) {
         try {
             TRANSACTION.begin();
+            toner.setDataInclusao(new Date(System.currentTimeMillis()));
             MANAGER.persist(toner);
             MANAGER.flush();
             MANAGER.clear();

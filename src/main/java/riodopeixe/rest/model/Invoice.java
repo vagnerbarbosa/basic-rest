@@ -40,7 +40,7 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
     private Integer id;
-    @Column(name = "numero", nullable = false, unique = true)
+    @Column(name = "numero", nullable = false, unique = true) 
     private Integer number;
     @Temporal(TemporalType.DATE)
     @Column(name = "dataemissao", nullable = false)
