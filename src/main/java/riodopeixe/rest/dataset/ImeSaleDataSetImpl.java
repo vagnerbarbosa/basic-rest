@@ -24,7 +24,7 @@ public class ImeSaleDataSetImpl implements ImeiSaleDataSet {
                         "pv.idpedidovenda,\n" +
                         "pv.databaixa,\n" +
                         "pv.nome AS cliente,\n" +
-                        "ns.numeroserie AS imei\n" +
+                        "substring(:imei FROM '[0-9]+') AS imei\n" +
                         "FROM rst.numeroserie ns\n" +
                         "INNER JOIN rst.itembase ib ON (ns.iditembase = ib.iditembase AND ns.idfilial = ib.idfilial)\n" +
                         "INNER JOIN rst.pedidovenda pv ON (pv.idpedidovenda = ib.idpedidovenda AND pv.idfilial = ib.idfilial)\n" +
