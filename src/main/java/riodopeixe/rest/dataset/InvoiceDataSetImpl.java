@@ -1,6 +1,5 @@
 package riodopeixe.rest.dataset;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +19,9 @@ import riodopeixe.rest.model.Invoice;
  *
  * @author Vagner Barbosa (contato@vagnerbarbosa.com)
  *
- * @since 03/06/2016
+ * @since 24/02/2017
  *
- * @version 1.0
+ * @version 2.0
  */
 public class InvoiceDataSetImpl implements InvoiceDataSet {
 
@@ -93,52 +92,30 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
      */
     @Override
     public Invoice getInvoiceByImei(String imei) {
-        List<Invoice> nfs = null;
+        Invoice invoice = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, imei_por_nota.imei FROM imei_por_nota INNER JOIN notafiscal ON (notafiscal.id = imei_por_nota.invoice_id) INNER JOIN fornecedor ON (notafiscal.id_fornecedor = fornecedor.id) WHERE imei_por_nota.invoice_id = (SELECT notafiscal.id FROM notafiscal INNER JOIN imei_por_nota ON (notafiscal.id = imei_por_nota.invoice_id) WHERE imei_por_nota.imei iLike :imei)";
-        nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("imei", imei).getResultList();
+        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, celular.id, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN fornecedor ON (fornecedor.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.id = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_id = celular.id) WHERE imei_por_celular.imei iLIKE :imei";
+        invoice = (Invoice) MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("imei", imei).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        Invoice nf = new Invoice();
-        nf.setId(nfs.get(0).getId());
-        nf.setNumber(nfs.get(0).getNumber());
-        nf.setIssuanceDate(nfs.get(0).getIssuanceDate());
-        nf.setDateEntry(nfs.get(0).getDateEntry());
-        List<String> imeis = new ArrayList<>();
-        for (int i = 0; i < nfs.size(); i++) {
-            imeis.add(nfs.get(i).getImei().get(i));
-        }
-        nf.setImei(imeis);
-        nf.setCnpjFornecedor(nfs.get(0).getCnpjFornecedor());
-        return nf;
+        return invoice;
     }
 
     @Override
     public Invoice getInvoiceByNumber(Integer number) {
-        List<Invoice> nfs = null;
+        Invoice invoice = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, imei_por_nota.imei FROM imei_por_nota INNER JOIN notafiscal ON (notafiscal.id = imei_por_nota.invoice_id) INNER JOIN fornecedor ON (notafiscal.id_fornecedor = fornecedor.id) WHERE notafiscal.numero = :numero";
-        nfs = MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("numero", number).getResultList();
+        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.razao_social, celular.id, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN fornecedor ON (fornecedor.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.id = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_id = celular.id) WHERE notafiscal.numero = :numero";
+        invoice = (Invoice) MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("numero", number).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }          
-        Invoice nf = new Invoice();
-        nf.setId(nfs.get(0).getId());
-        nf.setNumber(nfs.get(0).getNumber());
-        nf.setIssuanceDate(nfs.get(0).getIssuanceDate());
-        nf.setDateEntry(nfs.get(0).getDateEntry());
-        List<String> imeis = new ArrayList<>();
-        for (int i = 0; i < nfs.size(); i++) {
-            imeis.add(nfs.get(i).getImei().get(i));
-        }
-        nf.setImei(imeis);
-        nf.setCnpjFornecedor(nfs.get(0).getCnpjFornecedor());
-        return nf;
+        }        
+        return invoice;
     }
 
     /**

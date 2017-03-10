@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -26,9 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Vagner Barbosa (contato@vagnerbarbosa.com)
  *
- * @since 03/06/2016
+ * @since 24/02/2017
  *
- * @version 1.0
+ * @version 2.0
  */
 @Entity
 @Table(name="notafiscal")
@@ -47,11 +46,9 @@ public class Invoice implements Serializable {
     private Date issuanceDate;
     @Temporal(TemporalType.DATE)
     @Column(name = "dataentrada", nullable = false)
-    private Date dateEntry;
-    @ElementCollection
-    @CollectionTable(name = "imei_por_nota")
-    @JoinColumn(name = "notafiscal_id", referencedColumnName = "id")    
-    private List<String> Imei;    
+    private Date dateEntry;    
+    @ManyToMany
+    private List<CellPhone> cellPhone;    
     @JoinColumn(name = "id_fornecedor", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplier;
@@ -60,18 +57,11 @@ public class Invoice implements Serializable {
      *
      */
     public Invoice() {
-    }
-
-    public Invoice(Integer number, Date issuanceDate, Date dateEntry, Supplier supplier) {
-        this.number = number;
-        this.issuanceDate = issuanceDate;
-        this.dateEntry = dateEntry;
-        this.supplier = supplier;
-    }    
+    }  
 
     /**
      *
-     * @return
+     * @return id
      */
     @XmlElement
     public Integer getId() {
@@ -142,16 +132,16 @@ public class Invoice implements Serializable {
      * @return
      */
     @XmlElement
-    public List<String> getImei() {
-        return Imei;
+    public List<CellPhone> getCellPhone() {
+        return cellPhone;
     }
 
     /**
      *
-     * @param Imei
+     * @param cellPhone
      */
-    public void setImei(List Imei) {
-        this.Imei = Imei;
+    public void setCellPhone(List cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     /**
@@ -173,6 +163,6 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "NotaFiscal{" + "id=" + id + ", numero=" + number + ", dataEmissao=" + issuanceDate + ", dataEntrada=" + dateEntry + ", Imei=" + Imei + ", fornecedor=" + supplier + '}';
+        return "Invoice{" + "id=" + id + ", number=" + number + ", issuanceDate=" + issuanceDate + ", dateEntry=" + dateEntry + ", cellPhone=" + cellPhone + ", supplier=" + supplier + '}';
     }
 }

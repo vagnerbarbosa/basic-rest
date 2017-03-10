@@ -77,7 +77,7 @@ public class SupplierResource {
         System.out.println("Get Supplier by CNPJ: " + cnpj);
         String formattedCNPJ = formatter.format(cnpj);
         System.out.println("Get Supplier by CNPJ: " + formattedCNPJ);
-        Supplier supplier = supplierDataSet.getSupplierByCnpj(formattedCNPJ);
+        Supplier supplier = supplierDataSet.getSupplierByCnpj(cnpj);
         return supplier;
     }
 

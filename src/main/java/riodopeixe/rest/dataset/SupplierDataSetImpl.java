@@ -49,6 +49,20 @@ public class SupplierDataSetImpl implements SupplierDataSet {
             Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
+    
+//    @Override
+//    public Supplier getSupplierByCnpj(String cnpj) {   
+//        Supplier supplier = null;
+//        try {        
+//        TRANSACTION.begin();
+//        String jpql = "SELECT p.idcnpj_cpf AS id, p.cnpj_cpf AS cnpj, COALESCE(p.nomefantasia, p.nome) AS companyName, COALESCE(e.endereco,'SEM ENDEREÇO CADASTRADO') AS address, COALESCE(e.numero, '0') AS number, COALESCE(c.cidade,'SEM CIDADE CADASTRADA') AS city, COALESCE(c.uf, '??') AS FU, COALESCE(p.cce_rg, '0') AS IE, COALESCE(e.bairro, 'SEM BAIRRO CADASTRADO') AS neighborhood FROM glb.pessoa p LEFT JOIN glb.endereco e on (p.idcnpj_cpf=e.idcnpj_cpf AND e.idtipoendereco = 1) LEFT JOIN glb.cidade c   on (e.idcidade = c.idcidade) LEFT JOIN sis.tipopessoa tp on (p.idtipopessoa = tp.idtipopessoa AND p.idtipopessoa = 2) WHERE p.cnpj_cpf = :cnpj";
+//        supplier = (Supplier) MANAGER.createNativeQuery(jpql, Supplier.class).setParameter("cnpj", cnpj).getSingleResult();
+//        TRANSACTION.commit();
+//        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+//            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }        
+//        return supplier;
+//    }    
 
     /**
      *

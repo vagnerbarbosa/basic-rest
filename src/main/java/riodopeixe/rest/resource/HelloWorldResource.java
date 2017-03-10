@@ -13,7 +13,7 @@ import org.jboss.resteasy.annotations.cache.Cache;
 @Path("/")
 public class HelloWorldResource {
     
-    static final String API_VERSION = "2.00A rev.00010";
+    static final String API_VERSION = "2.00B rev.00460";
     
     @GET
     @GZIP

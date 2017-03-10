@@ -18,18 +18,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Vagner Barbosa (contato@vagnerbarbosa.com)
  *
- * @since 03/06/2016
+ * @since 25/02/2017
  *
- * @version 1.0
+ * @version 1.2
  */
 @Entity
 @Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@SequenceGenerator(name = "seq_gen2", sequenceName = "fornecedor_seq", initialValue = 1, allocationSize = 20)
 public class Supplier implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen2")
     private Long id;
     @Column(name = "cnpj", nullable = false)
     private String cnpj;
@@ -44,9 +42,9 @@ public class Supplier implements Serializable {
     @Column(name = "endereco", nullable = false)
     private String address;
     @Column(name = "numero", nullable = false)
-    private Integer number;
-    @Column(name = "ie", nullable = false)
-    private Long IE;
+    private String number;
+    @Column(name = "IE", nullable = false)
+    private String IE;
 
     /**
      *
@@ -65,7 +63,7 @@ public class Supplier implements Serializable {
      * @param number
      * @param IE
      */
-    public Supplier(String cnpj, String companyName, String FU, String city, String neighborhood, String address, Integer number, Long IE) {
+    public Supplier(String cnpj, String companyName, String FU, String city, String neighborhood, String address, String number, String IE) {
         this.cnpj = cnpj;
         this.companyName = companyName;
         this.FU = FU;
@@ -193,7 +191,7 @@ public class Supplier implements Serializable {
      * @return
      */
     @XmlElement
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -201,7 +199,7 @@ public class Supplier implements Serializable {
      *
      * @param number
      */
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -210,7 +208,7 @@ public class Supplier implements Serializable {
      * @return
      */
     @XmlElement
-    public Long getIE() {
+    public String getIE() {
         return IE;
     }
 
@@ -218,7 +216,7 @@ public class Supplier implements Serializable {
      *
      * @param IE
      */
-    public void setIE(Long IE) {
+    public void setIE(String IE) {
         this.IE = IE;
     }
 
