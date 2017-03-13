@@ -62,11 +62,10 @@ public class SalesResource {
     public ArrayList<Sales> getSalesByDate(@PathParam("datainicial") String dataInicial, @PathParam("datafinal") String dataFinal) {
         ArrayList<Sales> salesList = null;
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            formatter = formatter.withLocale(Locale.US);  
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate dateOne = LocalDate.parse(dataInicial, formatter);
             LocalDate dateTwo = LocalDate.parse(dataFinal, formatter);
-
+           
             salesList = (ArrayList<Sales>) salesDataSet.listSales(Date.valueOf(dateOne), Date.valueOf(dateTwo));            
  
         return salesList;
