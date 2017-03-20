@@ -28,13 +28,14 @@ public class ApplicationConfig extends Application {
         singletons.add(corsFilter);
 
         classes.add(HelloWorldResource.class);
+        classes.add(ImeiSaleResource.class);
         classes.add(InvoiceResource.class);        
         classes.add(SalesOrderResource.class);
         classes.add(SalesResource.class);
         classes.add(SupplierResource.class);
         classes.add(SysInvoiceResource.class);
         classes.add(TonerResource.class);
-        classes.add(ImeiSaleResource.class);
+        
     }
     
     @Override

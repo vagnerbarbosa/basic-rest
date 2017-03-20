@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version 1.2
  */
 @Entity
-@Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Supplier implements Serializable {
@@ -31,17 +30,17 @@ public class Supplier implements Serializable {
     private Long id;
     @Column(name = "cnpj", nullable = false)
     private String cnpj;
-    @Column(name = "razao_social", nullable = false)
+    @Column(name = "companyName", nullable = false)
     private String companyName;
-    @Column(name = "uf", nullable = false)
+    @Column(name = "fu", nullable = false)
     private String FU;
-    @Column(name = "cidade", nullable = false)    
+    @Column(name = "city", nullable = false)    
     private String city;
-    @Column(name = "bairro", nullable = false)
+    @Column(name = "neighborhood", nullable = false)
     private String neighborhood;
-    @Column(name = "endereco", nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "numero", nullable = false)
+    @Column(name = "number", nullable = false)
     private String number;
     @Column(name = "IE", nullable = false)
     private String IE;
