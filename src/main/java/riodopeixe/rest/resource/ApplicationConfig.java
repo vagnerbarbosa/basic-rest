@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.ext.Provider;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
 /**
@@ -13,6 +14,7 @@ import org.jboss.resteasy.plugins.interceptors.CorsFilter;
  * @author vagner
  */
 @ApplicationPath("/webservice")
+@Provider
 public class ApplicationConfig extends Application {
 
     private final Set<Object> singletons = new HashSet<>();

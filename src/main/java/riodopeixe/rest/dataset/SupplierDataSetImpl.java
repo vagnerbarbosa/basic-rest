@@ -60,12 +60,13 @@ public class SupplierDataSetImpl implements SupplierDataSet {
         String jpql = "SELECT p.idcnpj_cpf AS id, p.cnpj_cpf AS cnpj, COALESCE(p.nomefantasia, p.nome) AS companyName, COALESCE(e.endereco,'SEM ENDEREÇO CADASTRADO') AS address, COALESCE(e.numero, '0') AS number, COALESCE(c.cidade,'SEM CIDADE CADASTRADA') AS city, COALESCE(c.uf, '??') AS FU, COALESCE(p.cce_rg, '0') AS IE, COALESCE(e.bairro, 'SEM BAIRRO CADASTRADO') AS neighborhood FROM   glb.pessoa p   LEFT JOIN glb.endereco e on (p.idcnpj_cpf=e.idcnpj_cpf AND e.idtipoendereco = 1)   LEFT JOIN glb.cidade c   on (e.idcidade = c.idcidade)   LEFT JOIN sis.tipopessoa tp on (p.idtipopessoa = tp.idtipopessoa AND p.idtipopessoa = 2) WHERE   p.cnpj_cpf = :cnpj LIMIT 1";
         supplier = (Supplier) MANAGER.createNativeQuery(jpql, Supplier.class).setParameter("cnpj", cnpj).getSingleResult();
         TRANSACTION.commit();
-        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalArgumentException |IllegalStateException ex) {
+            //Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        if (getSupplierById(supplier.getId()) == null) {
+        if (getSupplierById(supplier.getId()) == null) { /** Verifica no Banco 2 se existe registro se não houver persiste */
             this.setSupplier(supplier);
-        } else { updateSupplier(supplier);}
+        } else { this.updateSupplier(supplier);}
         return supplier;
     }    
 
