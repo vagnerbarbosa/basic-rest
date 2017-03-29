@@ -61,52 +61,14 @@ public class SupplierDataSetImpl implements SupplierDataSet {
         supplier = (Supplier) MANAGER.createNativeQuery(jpql, Supplier.class).setParameter("cnpj", cnpj).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalArgumentException |IllegalStateException ex) {
-            //Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         if (getSupplierById(supplier.getId()) == null) { /** Verifica no Banco 2 se existe registro se não houver persiste */
             this.setSupplier(supplier);
         } else { this.updateSupplier(supplier);}
         return supplier;
-    }    
-
-//    /**
-//     *
-//     * @param cnpj
-//     * @return
-//     */
-//    @Override
-//    public Supplier getSupplierByCnpj(String cnpj) {   
-//        Query query = null;
-//        try {
-//        TRANSACTION.begin();
-//        query = MANAGER.createQuery("SELECT u FROM Supplier u WHERE u.cnpj = :cnpj");
-//        query.setParameter("cnpj", cnpj);
-//        TRANSACTION.commit();
-//        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-//            Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }  
-//        return (Supplier) query.getSingleResult();
-//    }
-
-//    /**
-//     *
-//     * @return
-//     */
-//    @Override
-//    public List<Supplier> getSuppliers() {
-//         List<Supplier> suppliers = null;
-//        try {        
-//        TRANSACTION.begin();
-//        String jpql = "SELECT p.idcnpj_cpf AS id, p.cnpj_cpf AS cnpj, COALESCE(p.nomefantasia, p.nome) AS companyName, COALESCE(e.endereco,'SEM ENDEREÇO CADASTRADO') AS address, COALESCE(e.numero, '0') AS number, COALESCE(c.cidade,'SEM CIDADE CADASTRADA') AS city, COALESCE(c.uf, '??') AS FU, COALESCE(p.cce_rg, '0') AS IE, COALESCE(e.bairro, 'SEM BAIRRO CADASTRADO') AS neighborhood FROM   glb.pessoa p   LEFT JOIN glb.endereco e on (p.idcnpj_cpf=e.idcnpj_cpf AND e.idtipoendereco = 1)   LEFT JOIN glb.cidade c   on (e.idcidade = c.idcidade)   LEFT JOIN sis.tipopessoa tp on (p.idtipopessoa = tp.idtipopessoa AND p.idtipopessoa = 2)";
-//        suppliers = MANAGER.createNativeQuery(jpql, Supplier.class).getResultList();
-//        TRANSACTION.commit();
-//        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-//            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }           
-//        return suppliers;
-//    }    
-    
+    }      
     
     /**
      *
@@ -114,15 +76,15 @@ public class SupplierDataSetImpl implements SupplierDataSet {
      */
     @Override
     public List<Supplier> getSuppliers() {
-        Query query = null;
+        List<Supplier> suppliers = null;
         try {        
         TRANSACTION.begin();
-        query = MANAGER2.createQuery("SELECT u FROM Supplier u");
+        Query query = MANAGER2.createQuery("SELECT u FROM Supplier u");
+        suppliers = query.getResultList();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        List<Supplier> suppliers = query.getResultList();
+        }               
         return suppliers;
     }
 

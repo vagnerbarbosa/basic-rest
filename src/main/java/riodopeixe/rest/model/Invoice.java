@@ -1,5 +1,6 @@
 package riodopeixe.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
@@ -42,9 +43,11 @@ public class Invoice implements Serializable {
     @Column(name = "numero", nullable = false, unique = true) 
     private Integer number;
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="BRT")
     @Column(name = "dataemissao", nullable = false)
     private Date issuanceDate;
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="BRT")
     @Column(name = "dataentrada", nullable = false)
     private Date dateEntry;    
     @ManyToMany
