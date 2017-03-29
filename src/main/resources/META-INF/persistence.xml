@@ -8,6 +8,9 @@
     <class>riodopeixe.rest.model.Sales</class>
     <class>riodopeixe.rest.model.ImeiSale</class>
     <class>riodopeixe.rest.model.Supplier</class>
+    <class>riodopeixe.rest.model.CellPhone</class>
+    <class>riodopeixe.rest.model.Invoice</class>
+    <class>riodopeixe.rest.model.ProductRegistration</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties>
@@ -42,7 +45,7 @@
     <class>riodopeixe.rest.model.Invoice</class>
     <class>riodopeixe.rest.model.CellPhone</class>
     <class>riodopeixe.rest.model.ImeiSale</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform"/>
       <property name="hibernate.archive.autodetection" value="class"/>

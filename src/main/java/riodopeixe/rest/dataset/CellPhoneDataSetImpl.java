@@ -1,5 +1,6 @@
 package riodopeixe.rest.dataset;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,8 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 import riodopeixe.rest.model.CellPhone;
+import riodopeixe.rest.model.Invoice;
+import riodopeixe.rest.model.ProductRegistration;
 import riodopeixe.rest.model.Supplier;
 
 /**
@@ -46,21 +49,28 @@ public class CellPhoneDataSetImpl implements CellPhoneDataSet {
     }
 
     @Override
-    public CellPhone getCellPhonebyRef(int cod, int color, int volt) {
-        CellPhone cellPhone = null;
+    public ProductRegistration getCellPhonebyRef(int cod, int color, int volt) {
+        ProductRegistration cellPhoneRegistration = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "";
-        cellPhone = (CellPhone) MANAGER.createNativeQuery(jpql, Supplier.class).setParameter("cod", cod).setParameter("color", color).setParameter("volt", volt).getSingleResult();
+        String jpql = "SELECT p.idproduto, x.idgradex, y.idgradey, p.descricao || ' - ' || x.descricao || ' - ' || y.descricao AS descricao FROM glb.produto p INNER JOIN glb.produtograde pg ON (pg.idproduto = p.idproduto) INNER JOIN glb.gradex x ON (x.idgradex = pg.idgradex) INNER JOIN glb.gradey y ON (y.idgradey = pg.idgradey) WHERE p.idproduto = :idproduto AND x.idgradex = :idgradex AND y.idgradey = :idgradey";
+        cellPhoneRegistration = (ProductRegistration) MANAGER.createNativeQuery(jpql, ProductRegistration.class).setParameter("idproduto", cod).setParameter("idgradex", color).setParameter("idgradey", volt).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalArgumentException |IllegalStateException ex) {
-            //Logger.getLogger(SupplierDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CellPhoneDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        if (getCellPhoneById(cellPhone.getId()) == null) { /** Verifica no Banco 2 se existe registro se não houver persiste */
+        
+        if (cellPhoneRegistration != null) {
+            CellPhone cellPhone = new CellPhone();
+            cellPhone.setIdProduto(cellPhoneRegistration.getIdProduto());
+            cellPhone.setColor(cellPhoneRegistration.getColor());
+            cellPhone.setVolts(cellPhoneRegistration.getVolts());
+            cellPhone.setDescription(cellPhoneRegistration.getDescription());
             this.cellPhonePersist(cellPhone);
-        } else { this.cellPhoneUpdate(cellPhone);}
-        return cellPhone;
+        }
+
+        return cellPhoneRegistration;
     }
 
     @Override

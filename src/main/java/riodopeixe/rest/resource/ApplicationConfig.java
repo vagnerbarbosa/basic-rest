@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
         corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
         singletons.add(corsFilter);
 
+        classes.add(CellPhoneResource.class);
         classes.add(HelloWorldResource.class);
         classes.add(ImeiSaleResource.class);
         classes.add(InvoiceResource.class);        

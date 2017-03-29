@@ -32,8 +32,6 @@ import riodopeixe.rest.model.Invoice;
 @Path("/nota")
 public class InvoiceResource {
 
-    static final String API_VERSION = "1.01A rev.18729";
-    static String xmlString = null;
     InvoiceDataSet invoiceDataSet;
     SupplierDataSet supplierDataSet;
     ObjectMapper mapper = new ObjectMapper();
