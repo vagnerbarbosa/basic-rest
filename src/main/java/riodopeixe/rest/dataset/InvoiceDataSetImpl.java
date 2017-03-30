@@ -1,6 +1,7 @@
 package riodopeixe.rest.dataset;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -153,11 +154,15 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
 
     @Override
     public Invoice getInvoiceByGenericSearch(String search) {
-        Invoice invoice;
+        Invoice invoice = null;
         try {
-            invoice = this.getInvoiceById(Integer.valueOf(search));
+            if (Objects.equals(this.getInvoiceById(Integer.valueOf(search)).getId(), Integer.valueOf(search))) {
+                invoice = this.getInvoiceById(Integer.valueOf(search));
+            }
         } catch(NumberFormatException n) {
-            invoice = this.getInvoiceByImei(search);
+            if (this.getInvoiceByImei(search) != null) {
+                invoice = this.getInvoiceByImei(search);
+            }
         }
         return invoice;
     }
