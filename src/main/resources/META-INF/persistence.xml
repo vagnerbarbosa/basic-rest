@@ -53,6 +53,7 @@
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+      <property name="hibernate.classloading.use_current_tccl_as_parent" value="false"/>
     </properties>
   </persistence-unit>
 </persistence>

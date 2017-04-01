@@ -5,14 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -50,7 +54,8 @@ public class Invoice implements Serializable {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="BRT")
     @Column(name = "dataentrada", nullable = false)
     private Date dateEntry;    
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER, targetEntity = CellPhone.class)
+    @JoinTable(name="notafiscal_celular", joinColumns={@JoinColumn(name="invoices_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="cellphone_id", referencedColumnName="id")})
     private List<CellPhone> cellPhone;    
     @JoinColumn(name = "id_fornecedor", referencedColumnName = "id")
     @ManyToOne
@@ -168,4 +173,6 @@ public class Invoice implements Serializable {
     public String toString() {
         return "Invoice{" + "id=" + id + ", number=" + number + ", issuanceDate=" + issuanceDate + ", dateEntry=" + dateEntry + ", cellPhone=" + cellPhone + ", supplier=" + supplier + '}';
     }
+
+
 }

@@ -14,6 +14,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 import riodopeixe.rest.model.Invoice;
+import riodopeixe.rest.model.Supplier;
 
 /**
  * Classe de pesistência para objetos do tipo Invoice.
@@ -42,12 +43,14 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
     public void setInvoice(Invoice invoice) {
         try {        
         TRANSACTION.begin();
-        MANAGER.persist(invoice);
+        Supplier sup = MANAGER.getReference(Supplier.class, invoice.getCnpjFornecedor().getId());
+        MANAGER.merge(sup);
+        invoice.setCnpjFornecedor(sup);
+        MANAGER.persist(invoice); 
         MANAGER.flush();
-        MANAGER.clear();        
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            Logger.getLogger(TonerDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InvoiceDataSetImpl.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
 

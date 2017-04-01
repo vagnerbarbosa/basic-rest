@@ -3,6 +3,7 @@ package riodopeixe.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
@@ -49,8 +52,6 @@ public class CellPhone implements Serializable {
     @CollectionTable(name = "imei_por_celular")
     @ElementCollection   
     private List<String> Imei;  
-    @ManyToMany(mappedBy = "cellPhone")
-    private List<Invoice> invoices;
 
     public CellPhone() {
     }
@@ -156,14 +157,12 @@ public class CellPhone implements Serializable {
         this.Imei = Imei;
     }
 
-    
-    @XmlTransient
-    public List<Invoice> getInvoices() {
-        return invoices;
+    @Override
+    public String toString() {
+        return "CellPhone{" + "id=" + id + ", idProduto=" + idProduto + ", color=" + color + ", volts=" + volts + ", description=" + description + ", Imei=" + Imei + '}';
     }
-
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }  
+    
+    
+    
     
 }
