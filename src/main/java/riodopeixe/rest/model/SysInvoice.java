@@ -17,7 +17,8 @@ public class SysInvoice implements Serializable {
     private Integer buyerCod;
     private Integer NfNumber;
     private String NfKey;
-    private Date dateEntry;
+    private Date dateIssuance;
+    private Date dateEntry;    
     private String supplierName;
 
     public SysInvoice() {
@@ -68,6 +69,16 @@ public class SysInvoice implements Serializable {
         this.NfKey = NfKey;
     }
 
+    @XmlElement(name = "dataEmissao")
+    public Date getDateIssuance() {
+        return dateIssuance;
+    }
+
+    public void setDateIssuance(Date dateIssuance) {
+        this.dateIssuance = dateIssuance;
+    }
+       
+
     @XmlElement(name = "dataEntrada")
     public Date getDateEntry() {
         return dateEntry;
@@ -88,9 +99,8 @@ public class SysInvoice implements Serializable {
 
     @Override
     public String toString() {
-        return "SysInvoice{" + "productCod=" + productCod + ", productDesc=" + productDesc + ", buyerCod=" + buyerCod + ", NfNumber=" + NfNumber + ", NfKey=" + NfKey + ", dateEntry=" + dateEntry + ", supplierName=" + supplierName + '}';
+        return "SysInvoice{" + "productCod=" + productCod + ", productDesc=" + productDesc + ", buyerCod=" + buyerCod + ", NfNumber=" + NfNumber + ", NfKey=" + NfKey + ", dateIssuance=" + dateIssuance + ", dateEntry=" + dateEntry + ", supplierName=" + supplierName + '}';
     }
-    
     
     
 }
