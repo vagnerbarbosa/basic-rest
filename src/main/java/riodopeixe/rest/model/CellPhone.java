@@ -3,6 +3,7 @@ package riodopeixe.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -55,22 +56,15 @@ public class CellPhone implements Serializable {
 
     public CellPhone() {
     }
-    
-    /**
-     *
-     * @return idCelular
-     */    
+
+    @XmlElement
     public Integer getId() {
         return id;
     }
 
-    /**
-     *
-     * @param id
-     */      
     public void setId(Integer id) {
         this.id = id;
-    }    
+    }
     
     /**
      *
@@ -159,10 +153,52 @@ public class CellPhone implements Serializable {
 
     @Override
     public String toString() {
-        return "CellPhone{" + "id=" + id + ", idProduto=" + idProduto + ", color=" + color + ", volts=" + volts + ", description=" + description + ", Imei=" + Imei + '}';
+        return "CellPhone{" + "id_cp=" + id + ", idProduto=" + idProduto + ", color=" + color + ", volts=" + volts + ", description=" + description + ", Imei=" + Imei + '}';
     }
-    
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.idProduto);
+        hash = 89 * hash + Objects.hashCode(this.color);
+        hash = 89 * hash + Objects.hashCode(this.volts);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.Imei);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CellPhone other = (CellPhone) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.idProduto, other.idProduto)) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        if (!Objects.equals(this.volts, other.volts)) {
+            return false;
+        }
+        if (!Objects.equals(this.Imei, other.Imei)) {
+            return false;
+        }
+        return true;
+    } 
     
 }

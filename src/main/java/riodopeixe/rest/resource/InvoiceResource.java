@@ -70,7 +70,7 @@ public class InvoiceResource {
     @GET
     @GZIP
     @Path("{imei}")
-    @Cache(mustRevalidate = true, maxAge = 3600) 
+    @Cache(mustRevalidate = true, maxAge = 35) 
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Invoice getInvoceByImei(@PathParam("imei") String imei) {
         System.out.println("Geting Invoice by Imei/Id: " + imei);

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,7 +57,7 @@ public class Invoice implements Serializable {
     private Date dateEntry;    
     @OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER, targetEntity = CellPhone.class)
     @JoinTable(name="notafiscal_celular", joinColumns={@JoinColumn(name="invoices_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="cellphone_id", referencedColumnName="id")})
-    private List<CellPhone> cellPhone;    
+    private List<CellPhone> cellPhones;    
     @JoinColumn(name = "id_fornecedor", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplier;
@@ -140,16 +141,16 @@ public class Invoice implements Serializable {
      * @return
      */
     @XmlElement
-    public List<CellPhone> getCellPhone() {
-        return cellPhone;
+    public List<CellPhone> getCellPhones() {
+        return cellPhones;
     }
 
     /**
      *
-     * @param cellPhone
+     * @param cellPhones
      */
-    public void setCellPhone(List cellPhone) {
-        this.cellPhone = cellPhone;
+    public void setCellPhones(List cellPhones) {
+        this.cellPhones = cellPhones;
     }
 
     /**
@@ -171,8 +172,51 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "Invoice{" + "id=" + id + ", number=" + number + ", issuanceDate=" + issuanceDate + ", dateEntry=" + dateEntry + ", cellPhone=" + cellPhone + ", supplier=" + supplier + '}';
+        return "Invoice{" + "id=" + id + ", number=" + number + ", issuanceDate=" + issuanceDate + ", dateEntry=" + dateEntry + ", cellPhones=" + cellPhones + ", supplier=" + supplier + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.number);
+        hash = 73 * hash + Objects.hashCode(this.issuanceDate);
+        hash = 73 * hash + Objects.hashCode(this.dateEntry);
+        hash = 73 * hash + Objects.hashCode(this.cellPhones);
+        hash = 73 * hash + Objects.hashCode(this.supplier);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Invoice other = (Invoice) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.number, other.number)) {
+            return false;
+        }
+        if (!Objects.equals(this.issuanceDate, other.issuanceDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateEntry, other.dateEntry)) {
+            return false;
+        }
+        if (!Objects.equals(this.cellPhones, other.cellPhones)) {
+            return false;
+        }
+        if (!Objects.equals(this.supplier, other.supplier)) {
+            return false;
+        }
+        return true;
+    }    
 }
