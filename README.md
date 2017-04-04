@@ -12,7 +12,7 @@ Rio do Peixe Rest-WebService
 
 Technologies:
 
-- RESTEasy
+- RESTeasy
 - Bootstrap
 - Bower
 
