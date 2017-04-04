@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -48,16 +48,16 @@ public class Invoice implements Serializable {
     @Column(name = "numero", nullable = false, unique = true) 
     private Integer number;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="BRT")
     @Column(name = "dataemissao", nullable = false)
     private Date issuanceDate;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="BRT")
     @Column(name = "dataentrada", nullable = false)
-    private Date dateEntry;    
-    @OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER, targetEntity = CellPhone.class)
-    @JoinTable(name="notafiscal_celular", joinColumns={@JoinColumn(name="invoices_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="cellphone_id", referencedColumnName="id")})
-    private List<CellPhone> cellPhones;    
+    private Date dateEntry; 
+    @XmlElement(name = "celular")
+    @ElementCollection 
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = CellPhone.class)
+    @JoinTable(name="notafiscal_celular", joinColumns={@JoinColumn(name="invoices_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="cellphone_id", referencedColumnName="idcelular")})
+    public List<CellPhone> cellPhones;    
     @JoinColumn(name = "id_fornecedor", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplier;
@@ -72,7 +72,7 @@ public class Invoice implements Serializable {
      *
      * @return id
      */
-    @XmlElement
+    @XmlElement(name = "idNota")
     public Integer getId() {
         return id;
     }
@@ -89,7 +89,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "numero")
     public Integer getNumber() {
         return number;
     }
@@ -106,7 +106,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "dataEmissao")
     public Date getIssuanceDate() {
         return issuanceDate;
     }
@@ -123,7 +123,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "dataEntrada")
     public Date getDateEntry() {
         return dateEntry;
     }
@@ -136,22 +136,22 @@ public class Invoice implements Serializable {
         this.dateEntry = dateEntry;
     }
 
-    /**
-     *
-     * @return
-     */
-    @XmlElement
-    public List<CellPhone> getCellPhones() {
-        return cellPhones;
-    }
-
-    /**
-     *
-     * @param cellPhones
-     */
-    public void setCellPhones(List cellPhones) {
-        this.cellPhones = cellPhones;
-    }
+//    /**
+//     *
+//     * @return
+//     */
+//    @XmlElement(name = "celular")
+//    public List<CellPhone> getCellPhones() {
+//        return cellPhones;
+//    }
+//
+//    /**
+//     *
+//     * @param cellPhones
+//     */
+//    public void setCellPhones(List cellPhones) {
+//        this.cellPhones = cellPhones;
+//    }
 
     /**
      *

@@ -2,9 +2,11 @@ package riodopeixe.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,7 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @version 1.2
  */
-@Entity
+@Entity(name = "fornecedor")
+@Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Supplier implements Serializable {
@@ -26,17 +29,17 @@ public class Supplier implements Serializable {
     private Long id;
     @Column(name = "cnpj", nullable = false)
     private String cnpj;
-    @Column(name = "companyName", nullable = false)
+    @Column(name = "nomeFornecedor", nullable = false)
     private String companyName;
-    @Column(name = "fu", nullable = false)
+    @Column(name = "uf", nullable = false)
     private String FU;
-    @Column(name = "city", nullable = false)    
+    @Column(name = "cidade", nullable = false)    
     private String city;
-    @Column(name = "neighborhood", nullable = false)
+    @Column(name = "bairro", nullable = false)
     private String neighborhood;
-    @Column(name = "address", nullable = false)
+    @Column(name = "endereco", nullable = false)
     private String address;
-    @Column(name = "number", nullable = false)
+    @Column(name = "numero", nullable = false)
     private String number;
     @Column(name = "IE", nullable = false)
     private String IE;
@@ -69,7 +72,7 @@ public class Supplier implements Serializable {
         this.IE = IE;
     }
 
-    @XmlElement
+    @XmlElement(name = "id")
     public Long getId() {
         return id;
     }
@@ -82,7 +85,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "cnpj")
     public String getCnpj() {        
         return this.cnpj;
                 
@@ -100,7 +103,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "nomeFornecedor")
     public String getCompanyName() {
         return companyName;
     }
@@ -117,7 +120,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "UF")
     public String getFU() {
         return FU;
     }
@@ -134,7 +137,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "cidade")
     public String getCity() {
         return city;
     }
@@ -151,7 +154,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "bairro")
     public String getNeighborhood() {
         return neighborhood;
     }
@@ -168,7 +171,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "endereco")
     public String getAddress() {
         return address;
     }
@@ -185,7 +188,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "numero")
     public String getNumber() {
         return number;
     }
@@ -202,7 +205,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "IE")
     public String getIE() {
         return IE;
     }
@@ -216,7 +219,67 @@ public class Supplier implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.cnpj);
+        hash = 37 * hash + Objects.hashCode(this.companyName);
+        hash = 37 * hash + Objects.hashCode(this.FU);
+        hash = 37 * hash + Objects.hashCode(this.city);
+        hash = 37 * hash + Objects.hashCode(this.neighborhood);
+        hash = 37 * hash + Objects.hashCode(this.address);
+        hash = 37 * hash + Objects.hashCode(this.number);
+        hash = 37 * hash + Objects.hashCode(this.IE);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Supplier other = (Supplier) obj;
+        if (!Objects.equals(this.cnpj, other.cnpj)) {
+            return false;
+        }
+        if (!Objects.equals(this.companyName, other.companyName)) {
+            return false;
+        }
+        if (!Objects.equals(this.FU, other.FU)) {
+            return false;
+        }
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        if (!Objects.equals(this.neighborhood, other.neighborhood)) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        if (!Objects.equals(this.number, other.number)) {
+            return false;
+        }
+        if (!Objects.equals(this.IE, other.IE)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Supplier{" + "id=" + id + ", cnpj=" + cnpj + ", companyName=" + companyName + ", FU=" + FU + ", city=" + city + ", neighborhood=" + neighborhood + ", address=" + address + ", number=" + number + ", IE=" + IE + '}';
     }
+    
+
+ 
 }

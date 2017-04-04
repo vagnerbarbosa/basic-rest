@@ -51,7 +51,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.2.9.Final</version>
-            <scope>provided</scope>
+            
         </dependency>
         <!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
 
@@ -59,7 +59,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
             <version>5.2.9.Final</version>
-            <scope>provided</scope>
+            
         </dependency>
         <dependency>
             <groupId>br.com.caelum.stella</groupId>

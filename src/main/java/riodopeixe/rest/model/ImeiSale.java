@@ -20,16 +20,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @version 1.0
  */
-@Entity
-@XmlRootElement(name = "imeiSale")
+@Entity(name = "imei_por_venda")
+@XmlRootElement(name = "imeiPorVenda")
 public class ImeiSale implements Serializable {
     
-    @Column(name = "numerofilial")
+    @Column(name = "numeroFilial")
     private Integer numberBranch;
     @Id
-    @Column(name = "idpedidovenda")
+    @Column(name = "idPedidoVenda")
     private Integer salesId;
-    @Column(name = "databaixa")
+    @Column(name = "dataBaixa")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date emissionDate;
     @Column(name = "cliente")
@@ -40,7 +40,7 @@ public class ImeiSale implements Serializable {
     public ImeiSale() {
     }
 
-    @XmlElement
+    @XmlElement(name = "numeroFilial") 
     public Integer getNumberBranch() {
         return numberBranch;
     }
@@ -49,7 +49,7 @@ public class ImeiSale implements Serializable {
         this.numberBranch = numberBranch;
     }
 
-    @XmlElement
+    @XmlElement(name = "idPedidoVenda")
     public Integer getSalesId() {
         return salesId;
     }
@@ -58,7 +58,7 @@ public class ImeiSale implements Serializable {
         this.salesId = salesId;
     }
 
-    @XmlElement
+    @XmlElement(name = "dataBaixa")
     public Date getEmissionDate() {
         return emissionDate;
     }
@@ -67,7 +67,7 @@ public class ImeiSale implements Serializable {
         this.emissionDate = emissionDate;
     }
 
-    @XmlElement
+    @XmlElement(name = "cliente")
     public String getClient() {
         return client;
     }
@@ -76,7 +76,7 @@ public class ImeiSale implements Serializable {
         this.client = client;
     }
 
-    @XmlElement
+    @XmlElement(name = "imei")
     public String getImei() {
         return imei;
     }

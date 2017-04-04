@@ -33,15 +33,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name="celular")
-@XmlRootElement(name = "cellPhone")
+@XmlRootElement(name = "celular")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "seq_gen", sequenceName = "celular_seq", initialValue = 1, allocationSize = 1)
 public class CellPhone implements Serializable {
     
     @Id
-    @Column(name = "id")
+    @Column(name = "idcelular")
     @GeneratedValue(strategy=GenerationType.AUTO, generator="seq_gen")
-    private Integer id;    
+    private Integer idcelular;    
     @Column(name = "idproduto")
     private Integer idProduto;
     @Column(name = "idgradex")
@@ -57,20 +57,20 @@ public class CellPhone implements Serializable {
     public CellPhone() {
     }
 
-    @XmlElement
-    public Integer getId() {
-        return id;
+    @XmlElement(name = "idcelular")
+    public Integer getIdCelular() {
+        return idcelular;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdCelular(Integer idCelular) {
+        this.idcelular = idCelular;
     }
     
     /**
      *
      * @return idProduto
      */
-    @XmlElement
+    @XmlElement(name = "idProduto")
     public Integer getIdProduto() {
         return idProduto;
     }
@@ -87,7 +87,7 @@ public class CellPhone implements Serializable {
      *
      * @return color
      */    
-    @XmlElement
+    @XmlElement(name = "cor")
     public Integer getColor() {
         return color;
     }
@@ -104,7 +104,7 @@ public class CellPhone implements Serializable {
      *
      * @return volts
      */
-    @XmlElement
+    @XmlElement(name = "voltagem")
     public Integer getVolts() {
         return volts;
     }
@@ -121,7 +121,7 @@ public class CellPhone implements Serializable {
      *
      * @return description
      */    
-    @XmlElement
+    @XmlElement(name = "descricao")
     public String getDescription() {
         return description;
     }
@@ -138,7 +138,7 @@ public class CellPhone implements Serializable {
      *
      * @return
      */
-    @XmlElement
+    @XmlElement(name = "imeis")
     public List<String> getImei() {
         return Imei;
     }
@@ -152,19 +152,14 @@ public class CellPhone implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "CellPhone{" + "id_cp=" + id + ", idProduto=" + idProduto + ", color=" + color + ", volts=" + volts + ", description=" + description + ", Imei=" + Imei + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.idProduto);
-        hash = 89 * hash + Objects.hashCode(this.color);
-        hash = 89 * hash + Objects.hashCode(this.volts);
-        hash = 89 * hash + Objects.hashCode(this.description);
-        hash = 89 * hash + Objects.hashCode(this.Imei);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.idcelular);
+        hash = 79 * hash + Objects.hashCode(this.idProduto);
+        hash = 79 * hash + Objects.hashCode(this.color);
+        hash = 79 * hash + Objects.hashCode(this.volts);
+        hash = 79 * hash + Objects.hashCode(this.description);
+        hash = 79 * hash + Objects.hashCode(this.Imei);
         return hash;
     }
 
@@ -183,7 +178,7 @@ public class CellPhone implements Serializable {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.idcelular, other.idcelular)) {
             return false;
         }
         if (!Objects.equals(this.idProduto, other.idProduto)) {
@@ -199,6 +194,11 @@ public class CellPhone implements Serializable {
             return false;
         }
         return true;
-    } 
+    }
+
+    @Override
+    public String toString() {
+        return "CellPhone{" + "idCelular=" + idcelular + ", idProduto=" + idProduto + ", color=" + color + ", volts=" + volts + ", description=" + description + ", Imei=" + Imei + '}';
+    }
     
 }

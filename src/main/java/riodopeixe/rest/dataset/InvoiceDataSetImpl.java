@@ -13,6 +13,7 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
+import riodopeixe.rest.model.CellPhone;
 import riodopeixe.rest.model.Invoice;
 import riodopeixe.rest.model.Supplier;
 
@@ -99,7 +100,7 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
         Invoice invoice = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, supplier.cnpj, supplier.ie, supplier.fu, supplier.neighborhood, supplier.city, supplier.address, supplier.number, supplier.companyname, celular.id, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN supplier ON (supplier.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.id = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_id = celular.id) WHERE imei_por_celular.imei iLIKE :imei";
+        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.nomeFornecedor, celular.idcelular, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN fornecedor ON (fornecedor.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.idcelular = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_idcelular = celular.idcelular) WHERE imei_por_celular.imei iLIKE :imei";
         invoice = (Invoice) MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("imei", imei).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
@@ -113,7 +114,7 @@ public class InvoiceDataSetImpl implements InvoiceDataSet {
         Invoice invoice = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, supplier.cnpj, supplier.ie, supplier.fu, supplier.neighborhood, supplier.city, supplier.address, supplier.number, supplier.companyname, celular.id, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN supplier ON (supplier.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.id = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_id = celular.id) WHERE notafiscal.numero = :numero";
+        String jpql = "SELECT notafiscal.id, notafiscal.dataEmissao, notafiscal.dataEntrada, notafiscal.id_fornecedor, notafiscal.numero, fornecedor.cnpj, fornecedor.ie, fornecedor.uf, fornecedor.bairro, fornecedor.cidade, fornecedor.endereco, fornecedor.numero, fornecedor.nomeFornecedor, celular.idcelular, celular.idproduto, celular.idgradex, celular.idgradey, celular.descricao, imei_por_celular.imei FROM notafiscal INNER JOIN fornecedor ON (fornecedor.id = notafiscal.id_fornecedor) INNER JOIN notafiscal_celular ON (notafiscal.id = notafiscal_celular.invoices_id) INNER JOIN celular ON (celular.idcelular = notafiscal_celular.cellphone_id) INNER JOIN imei_por_celular ON (imei_por_celular.cellphone_id = celular.idcelular) WHERE notafiscal.numero = :numero";
         invoice = (Invoice) MANAGER.createNativeQuery(jpql, Invoice.class).setParameter("numero", number).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
