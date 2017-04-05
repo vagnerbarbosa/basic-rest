@@ -2,6 +2,7 @@ package riodopeixe.rest.resource;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -43,6 +44,7 @@ public class InvoiceResource {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
+        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS); 
         this.invoiceDataSet = new InvoiceDataSetImpl();
         this.supplierDataSet = new SupplierDataSetImpl();
     }
@@ -132,7 +134,7 @@ public class InvoiceResource {
      */
     @POST
     @GZIP
-    @Path("/add")    
+    @Path("{numero}")     
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
