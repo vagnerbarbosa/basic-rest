@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="celular")
 @XmlRootElement(name = "celular")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 @SequenceGenerator(name = "seq_gen", sequenceName = "celular_seq", initialValue = 1, allocationSize = 1)
 public class CellPhone implements Serializable {
     

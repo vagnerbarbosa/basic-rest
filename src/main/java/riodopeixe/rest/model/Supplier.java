@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "fornecedor")
 @Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 public class Supplier implements Serializable {
     @Id
     private Long id;

@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="notafiscal")
 @XmlRootElement(name = "notafiscal")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 @SequenceGenerator(name = "seq_gen", sequenceName = "nota_seq", initialValue = 548, allocationSize = 1)
 public class Invoice implements Serializable {
 
