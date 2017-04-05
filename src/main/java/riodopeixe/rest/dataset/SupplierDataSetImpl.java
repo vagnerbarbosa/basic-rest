@@ -1,5 +1,7 @@
 package riodopeixe.rest.dataset;
 
+import br.com.caelum.stella.format.CNPJFormatter;
+import br.com.caelum.stella.format.Formatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,11 +55,11 @@ public class SupplierDataSetImpl implements SupplierDataSet {
     }
     
     @Override
-    public Supplier getSupplierByCnpj(String cnpj) {   
+    public Supplier getSupplierByCnpj(String cnpj) {
         Supplier supplier = null;
         try {        
         TRANSACTION.begin();
-        String jpql = "SELECT p.idcnpj_cpf AS id, p.cnpj_cpf AS cnpj, COALESCE(p.nomefantasia, p.nome) AS nomeFornecedor, COALESCE(e.endereco,'SEM ENDEREÇO CADASTRADO') AS endereco, COALESCE(e.numero, '0') AS numero, COALESCE(c.cidade,'SEM CIDADE CADASTRADA') AS cidade, COALESCE(c.uf, '??') AS uf, COALESCE(p.cce_rg, '0') AS IE, COALESCE(e.bairro, 'SEM BAIRRO CADASTRADO') AS bairro FROM   glb.pessoa p   LEFT JOIN glb.endereco e on (p.idcnpj_cpf=e.idcnpj_cpf AND e.idtipoendereco = 1)   LEFT JOIN glb.cidade c   on (e.idcidade = c.idcidade)   LEFT JOIN sis.tipopessoa tp on (p.idtipopessoa = tp.idtipopessoa AND p.idtipopessoa = 2) WHERE   p.cnpj_cpf = :cnpj LIMIT 1";
+        String jpql = "SELECT p.idcnpj_cpf AS id, p.cnpj_cpf AS cnpj, p.cnpj_cpf || ' - ' || COALESCE(p.nomefantasia, p.nome) AS nomeFornecedor, COALESCE(e.endereco,'SEM ENDEREÇO CADASTRADO') AS endereco, COALESCE(e.numero, '0') AS numero, COALESCE(c.cidade,'SEM CIDADE CADASTRADA') AS cidade, COALESCE(c.uf, '??') AS uf, COALESCE(p.cce_rg, '0') AS IE, COALESCE(e.bairro, 'SEM BAIRRO CADASTRADO') AS bairro FROM   glb.pessoa p   LEFT JOIN glb.endereco e on (p.idcnpj_cpf=e.idcnpj_cpf AND e.idtipoendereco = 1)   LEFT JOIN glb.cidade c   on (e.idcidade = c.idcidade)   LEFT JOIN sis.tipopessoa tp on (p.idtipopessoa = tp.idtipopessoa AND p.idtipopessoa = 2) WHERE   p.cnpj_cpf = :cnpj LIMIT 1";
         supplier = (Supplier) MANAGER.createNativeQuery(jpql, Supplier.class).setParameter("cnpj", cnpj).getSingleResult();
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalArgumentException |IllegalStateException ex) {
@@ -131,7 +133,7 @@ public class SupplierDataSetImpl implements SupplierDataSet {
     public void removeSupplierByCnpj(String cnpj) {
         try {        
         TRANSACTION.begin();
-        Query query = MANAGER2.createQuery("DELETE FROM Supplier f WHERE f.cnpj = :cnpj");
+        Query query = MANAGER2.createQuery("DELETE FROM fornecedor f WHERE f.cnpj = :cnpj");
         query.setParameter("cnpj", cnpj).executeUpdate();        
         TRANSACTION.commit();
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
