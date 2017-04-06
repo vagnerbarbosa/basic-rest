@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author vagner
  */
 @Entity
-@XmlRootElement(name = "cellPhone")
+@XmlRootElement(name = "celular")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductRegistration implements Serializable {
   
@@ -52,7 +52,7 @@ public class ProductRegistration implements Serializable {
      *
      * @return color
      */    
-    @XmlElement
+    @XmlElement(name = "cor")
     public Integer getColor() {
         return color;
     }
@@ -69,7 +69,7 @@ public class ProductRegistration implements Serializable {
      *
      * @return volts
      */
-    @XmlElement
+    @XmlElement(name = "voltagem")
     public Integer getVolts() {
         return volts;
     }
@@ -86,7 +86,7 @@ public class ProductRegistration implements Serializable {
      *
      * @return description
      */    
-    @XmlElement
+    @XmlElement(name = "descricao")
     public String getDescription() {
         return description;
     }
