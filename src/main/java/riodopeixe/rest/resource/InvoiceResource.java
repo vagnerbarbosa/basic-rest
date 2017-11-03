@@ -2,7 +2,6 @@ package riodopeixe.rest.resource;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,6 +32,8 @@ import riodopeixe.rest.model.Invoice;
 @Path("/nota")
 public class InvoiceResource {
 
+    static final String API_VERSION = "1.01A rev.18729";
+    static String xmlString = null;
     InvoiceDataSet invoiceDataSet;
     SupplierDataSet supplierDataSet;
     ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +45,6 @@ public class InvoiceResource {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
-        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS); 
         this.invoiceDataSet = new InvoiceDataSetImpl();
         this.supplierDataSet = new SupplierDataSetImpl();
     }
@@ -72,7 +72,7 @@ public class InvoiceResource {
     @GET
     @GZIP
     @Path("{imei}")
-    @Cache(mustRevalidate = true, maxAge = 10) 
+    @Cache(mustRevalidate = true, maxAge = 3600) 
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Invoice getInvoceByImei(@PathParam("imei") String imei) {
         System.out.println("Geting Invoice by Imei/Id: " + imei);
@@ -134,7 +134,7 @@ public class InvoiceResource {
      */
     @POST
     @GZIP
-    @Path("{numero}")     
+    @Path("/add")    
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

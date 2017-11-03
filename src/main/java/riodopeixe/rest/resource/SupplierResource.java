@@ -4,7 +4,6 @@ import br.com.caelum.stella.format.CNPJFormatter;
 import br.com.caelum.stella.format.Formatter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -45,8 +44,7 @@ public class SupplierResource {
     public SupplierResource() {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);          
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
         this.supplierDataSet = new SupplierDataSetImpl();
     }
 
@@ -79,7 +77,7 @@ public class SupplierResource {
         System.out.println("Get Supplier by CNPJ: " + cnpj);
         String formattedCNPJ = formatter.format(cnpj);
         System.out.println("Get Supplier by CNPJ: " + formattedCNPJ);
-        Supplier supplier = supplierDataSet.getSupplierByCnpj(cnpj);
+        Supplier supplier = supplierDataSet.getSupplierByCnpj(formattedCNPJ);
         return supplier;
     }
 

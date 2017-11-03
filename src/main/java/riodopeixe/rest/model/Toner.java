@@ -1,8 +1,6 @@
 package riodopeixe.rest.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -106,6 +104,8 @@ public class Toner implements Serializable {
         this.dataInclusao = dataInclusao;
     }
 
+
+
     @XmlElement
     public String getSituacao() {
         return situacao;
@@ -123,12 +123,6 @@ public class Toner implements Serializable {
     public void setServicos(List<Servico> servicos) {
         this.servicos = servicos;
     }
-    
-    private String getDateTime() {
-	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-	Date date = new Date();
-	return dateFormat.format(date);
-    }    
 
     @Override
     public String toString() {

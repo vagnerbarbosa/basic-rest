@@ -4,19 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,33 +26,32 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Vagner Barbosa (contato@vagnerbarbosa.com)
  *
- * @since 24/02/2017
+ * @since 03/06/2016
  *
- * @version 2.0
+ * @version 1.0
  */
 @Entity
 @Table(name="notafiscal")
 @XmlRootElement(name = "notafiscal")
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "seq_gen", sequenceName = "nota_seq", initialValue = 548, allocationSize = 1)
 public class Invoice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
     private Integer id;
-    @Column(name = "numero", nullable = false, unique = true) 
+    @Column(name = "numero", nullable = false, unique = true)
     private Integer number;
     @Temporal(TemporalType.DATE)
     @Column(name = "dataemissao", nullable = false)
     private Date issuanceDate;
     @Temporal(TemporalType.DATE)
     @Column(name = "dataentrada", nullable = false)
-    private Date dateEntry; 
-    @XmlElement(name = "celular")
-    @ElementCollection 
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = CellPhone.class)
-    @JoinTable(name="notafiscal_celular", joinColumns={@JoinColumn(name="invoices_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="cellphone_id", referencedColumnName="idcelular")})
-    public List<CellPhone> cellPhones;    
+    private Date dateEntry;
+    @ElementCollection
+    @CollectionTable(name = "imei_por_nota")
+    @JoinColumn(name = "notafiscal_id", referencedColumnName = "id")    
+    private List<String> Imei;    
     @JoinColumn(name = "id_fornecedor", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplier;
@@ -65,13 +60,20 @@ public class Invoice implements Serializable {
      *
      */
     public Invoice() {
-    }  
+    }
+
+    public Invoice(Integer number, Date issuanceDate, Date dateEntry, Supplier supplier) {
+        this.number = number;
+        this.issuanceDate = issuanceDate;
+        this.dateEntry = dateEntry;
+        this.supplier = supplier;
+    }    
 
     /**
      *
-     * @return id
+     * @return
      */
-    @XmlElement(name = "idNota")
+    @XmlElement
     public Integer getId() {
         return id;
     }
@@ -88,7 +90,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "numero")
+    @XmlElement
     public Integer getNumber() {
         return number;
     }
@@ -105,7 +107,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "dataEmissao")
+    @XmlElement
     public Date getIssuanceDate() {
         return issuanceDate;
     }
@@ -122,7 +124,7 @@ public class Invoice implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "dataEntrada")
+    @XmlElement
     public Date getDateEntry() {
         return dateEntry;
     }
@@ -135,22 +137,22 @@ public class Invoice implements Serializable {
         this.dateEntry = dateEntry;
     }
 
-//    /**
-//     *
-//     * @return
-//     */
-//    @XmlElement(name = "celular")
-//    public List<CellPhone> getCellPhones() {
-//        return cellPhones;
-//    }
-//
-//    /**
-//     *
-//     * @param cellPhones
-//     */
-//    public void setCellPhones(List cellPhones) {
-//        this.cellPhones = cellPhones;
-//    }
+    /**
+     *
+     * @return
+     */
+    @XmlElement
+    public List<String> getImei() {
+        return Imei;
+    }
+
+    /**
+     *
+     * @param Imei
+     */
+    public void setImei(List Imei) {
+        this.Imei = Imei;
+    }
 
     /**
      *
@@ -171,51 +173,6 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "Invoice{" + "id=" + id + ", number=" + number + ", issuanceDate=" + issuanceDate + ", dateEntry=" + dateEntry + ", cellPhones=" + cellPhones + ", supplier=" + supplier + '}';
+        return "NotaFiscal{" + "id=" + id + ", numero=" + number + ", dataEmissao=" + issuanceDate + ", dataEntrada=" + dateEntry + ", Imei=" + Imei + ", fornecedor=" + supplier + '}';
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        hash = 73 * hash + Objects.hashCode(this.number);
-        hash = 73 * hash + Objects.hashCode(this.issuanceDate);
-        hash = 73 * hash + Objects.hashCode(this.dateEntry);
-        hash = 73 * hash + Objects.hashCode(this.cellPhones);
-        hash = 73 * hash + Objects.hashCode(this.supplier);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Invoice other = (Invoice) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.number, other.number)) {
-            return false;
-        }
-        if (!Objects.equals(this.issuanceDate, other.issuanceDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.dateEntry, other.dateEntry)) {
-            return false;
-        }
-        if (!Objects.equals(this.cellPhones, other.cellPhones)) {
-            return false;
-        }
-        if (!Objects.equals(this.supplier, other.supplier)) {
-            return false;
-        }
-        return true;
-    }    
 }
