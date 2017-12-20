@@ -1,5 +1,7 @@
 package riodopeixe.rest.resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,7 +10,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -24,6 +25,7 @@ import riodopeixe.rest.model.Sales;
  *
  * @author vagner
  */
+@Api(tags = "Recurso Sales")
 @Path("/sales")
 public class SalesResource {
         
@@ -38,6 +40,9 @@ public class SalesResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Cache(mustRevalidate = true)
     @GZIP
+        @ApiOperation(
+		value = "Recupera todas as vendas diárias.",  
+		produces = MediaType.APPLICATION_JSON)
     public ArrayList<Sales> getSalesToday() {
         ArrayList<Sales> salesList = null;
 
@@ -59,6 +64,9 @@ public class SalesResource {
     @Cache(mustRevalidate = true)
     @GZIP
     @Path("{datainicial}/{datafinal}")
+            @ApiOperation(
+		value = "Recupera todas as vendas por intervalo de data.",  
+		produces = MediaType.APPLICATION_JSON)
     public ArrayList<Sales> getSalesByDate(@PathParam("datainicial") String dataInicial, @PathParam("datafinal") String dataFinal) {
         ArrayList<Sales> salesList = null;
 

@@ -2,10 +2,12 @@ package riodopeixe.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,20 +18,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Vagner Barbosa (contato@vagnerbarbosa.com)
  *
- * @since 25/02/2017
+ * @since 03/06/2016
  *
- * @version 1.2
+ * @version 1.0
  */
-@Entity(name = "fornecedor")
+@Entity
 @Table(name="fornecedor")
 @XmlRootElement(name = "fornecedor")
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(ignoreUnknown = true)
+@SequenceGenerator(name = "seq_gen2", sequenceName = "fornecedor_seq", initialValue = 1, allocationSize = 20)
 public class Supplier implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen2")
     private Long id;
     @Column(name = "cnpj", nullable = false)
     private String cnpj;
-    @Column(name = "nomeFornecedor", nullable = false)
+    @Column(name = "razao_social", nullable = false)
     private String companyName;
     @Column(name = "uf", nullable = false)
     private String FU;
@@ -40,9 +44,9 @@ public class Supplier implements Serializable {
     @Column(name = "endereco", nullable = false)
     private String address;
     @Column(name = "numero", nullable = false)
-    private String number;
-    @Column(name = "IE", nullable = false)
-    private String IE;
+    private Integer number;
+    @Column(name = "ie", nullable = false)
+    private Long IE;
 
     /**
      *
@@ -61,7 +65,7 @@ public class Supplier implements Serializable {
      * @param number
      * @param IE
      */
-    public Supplier(String cnpj, String companyName, String FU, String city, String neighborhood, String address, String number, String IE) {
+    public Supplier(String cnpj, String companyName, String FU, String city, String neighborhood, String address, Integer number, Long IE) {
         this.cnpj = cnpj;
         this.companyName = companyName;
         this.FU = FU;
@@ -72,7 +76,7 @@ public class Supplier implements Serializable {
         this.IE = IE;
     }
 
-    @XmlElement(name = "id")
+    @XmlElement
     public Long getId() {
         return id;
     }
@@ -85,7 +89,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "cnpj")
+    @XmlElement
     public String getCnpj() {        
         return this.cnpj;
                 
@@ -103,7 +107,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "nomeFornecedor")
+    @XmlElement
     public String getCompanyName() {
         return companyName;
     }
@@ -120,7 +124,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "UF")
+    @XmlElement
     public String getFU() {
         return FU;
     }
@@ -137,7 +141,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "cidade")
+    @XmlElement
     public String getCity() {
         return city;
     }
@@ -154,7 +158,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "bairro")
+    @XmlElement
     public String getNeighborhood() {
         return neighborhood;
     }
@@ -171,7 +175,7 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "endereco")
+    @XmlElement
     public String getAddress() {
         return address;
     }
@@ -188,8 +192,8 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "numero")
-    public String getNumber() {
+    @XmlElement
+    public Integer getNumber() {
         return number;
     }
 
@@ -197,7 +201,7 @@ public class Supplier implements Serializable {
      *
      * @param number
      */
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
@@ -205,8 +209,8 @@ public class Supplier implements Serializable {
      *
      * @return
      */
-    @XmlElement(name = "IE")
-    public String getIE() {
+    @XmlElement
+    public Long getIE() {
         return IE;
     }
 
@@ -214,72 +218,12 @@ public class Supplier implements Serializable {
      *
      * @param IE
      */
-    public void setIE(String IE) {
+    public void setIE(Long IE) {
         this.IE = IE;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.cnpj);
-        hash = 37 * hash + Objects.hashCode(this.companyName);
-        hash = 37 * hash + Objects.hashCode(this.FU);
-        hash = 37 * hash + Objects.hashCode(this.city);
-        hash = 37 * hash + Objects.hashCode(this.neighborhood);
-        hash = 37 * hash + Objects.hashCode(this.address);
-        hash = 37 * hash + Objects.hashCode(this.number);
-        hash = 37 * hash + Objects.hashCode(this.IE);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Supplier other = (Supplier) obj;
-        if (!Objects.equals(this.cnpj, other.cnpj)) {
-            return false;
-        }
-        if (!Objects.equals(this.companyName, other.companyName)) {
-            return false;
-        }
-        if (!Objects.equals(this.FU, other.FU)) {
-            return false;
-        }
-        if (!Objects.equals(this.city, other.city)) {
-            return false;
-        }
-        if (!Objects.equals(this.neighborhood, other.neighborhood)) {
-            return false;
-        }
-        if (!Objects.equals(this.address, other.address)) {
-            return false;
-        }
-        if (!Objects.equals(this.number, other.number)) {
-            return false;
-        }
-        if (!Objects.equals(this.IE, other.IE)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
     public String toString() {
         return "Supplier{" + "id=" + id + ", cnpj=" + cnpj + ", companyName=" + companyName + ", FU=" + FU + ", city=" + city + ", neighborhood=" + neighborhood + ", address=" + address + ", number=" + number + ", IE=" + IE + '}';
     }
-    
-
- 
 }

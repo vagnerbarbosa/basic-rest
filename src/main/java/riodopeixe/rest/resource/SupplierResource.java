@@ -4,7 +4,8 @@ import br.com.caelum.stella.format.CNPJFormatter;
 import br.com.caelum.stella.format.Formatter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -30,6 +31,7 @@ import riodopeixe.rest.model.Supplier;
  *
  * @version 1.0
  */
+@Api(tags = "Recurso Supplier")
 @Path("/fornecedor")
 public class SupplierResource {
 
@@ -45,8 +47,7 @@ public class SupplierResource {
     public SupplierResource() {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);          
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
         this.supplierDataSet = new SupplierDataSetImpl();
     }
 
@@ -58,6 +59,9 @@ public class SupplierResource {
     @GZIP
     @Cache(mustRevalidate = true, maxAge = 3600) 
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recuperar todos os Fornecedores cadastrados.",  
+		produces = MediaType.APPLICATION_JSON)    
     public ArrayList<Supplier> getSuppliers() {
         System.out.println("Get all suppliers...");
         ArrayList<Supplier> suppliersList = (ArrayList<Supplier>) supplierDataSet.getSuppliers();
@@ -74,12 +78,15 @@ public class SupplierResource {
     @Path("{cnpj}")    
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recuperar o Fornecedor pelo CNPJ.",  
+		produces = MediaType.APPLICATION_JSON)     
     public Supplier getSupplierByCnpj(@PathParam("cnpj") String cnpj) {               
         formatter = new CNPJFormatter();
         System.out.println("Get Supplier by CNPJ: " + cnpj);
         String formattedCNPJ = formatter.format(cnpj);
         System.out.println("Get Supplier by CNPJ: " + formattedCNPJ);
-        Supplier supplier = supplierDataSet.getSupplierByCnpj(cnpj);
+        Supplier supplier = supplierDataSet.getSupplierByCnpj(formattedCNPJ);
         return supplier;
     }
 
@@ -94,6 +101,10 @@ public class SupplierResource {
     @Cache(mustRevalidate = true, maxAge = 3600)      
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Atualiza a informação de um Fornecedor.", 
+		produces = MediaType.APPLICATION_JSON,
+                consumes = MediaType.APPLICATION_JSON)    
     public Supplier updateSupplierByCnpj(Supplier supplier) {
         System.out.println("Updating Supplier by CNPJ: " + supplier.getCnpj());
         supplierDataSet.updateSupplier(supplier);
@@ -109,6 +120,9 @@ public class SupplierResource {
     @Path("{cnpj}")    
     @Cache(mustRevalidate = true, maxAge = 3600)    
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Deleta todas as informações de um Fornecedor.", 
+		produces = MediaType.APPLICATION_JSON)      
     public void deleteSupplierByCnpj(@PathParam("cnpj") String cnpj) {        
         System.out.println("Get Supplier by CNPJ: " + cnpj);
         String formattedCNPJ = formatter.format(cnpj);
@@ -128,6 +142,10 @@ public class SupplierResource {
     @Cache(mustRevalidate = true, maxAge = 3600)    
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Persiste as informações de um Fornecedor.", 
+		produces = MediaType.APPLICATION_JSON,
+                consumes = MediaType.APPLICATION_JSON)    
     public Supplier supplierPersist(Supplier supplier) {
         System.out.println("Adding supplier with cnpj: " + supplier.getCnpj());
         if (supplier.getCnpj() != null && formatter.isFormatted(supplier.getCnpj())) {

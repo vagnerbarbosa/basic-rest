@@ -1,5 +1,7 @@
 package riodopeixe.rest.resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -21,6 +23,7 @@ import riodopeixe.rest.jdbc.SysInvoiceDataSetImpl;
  *
  * @version 1.0
  */
+@Api(tags = "Recurso SysInvoice")
 @Path("/nota-entrada")
 public class SysInvoiceResource {
 
@@ -46,6 +49,9 @@ public class SysInvoiceResource {
     @Path("{code}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recupera os dados das notas fiscais de entrada por código de produto do Super Loja.",  
+		produces = MediaType.APPLICATION_JSON)     
     public List<SysInvoice> getInvoices(@PathParam("code") String code) throws SQLException {
         System.out.println("Get Invoices...");        
         List<SysInvoice> notaList = sysInvoiceDataSetImpl.getSysInvoices(code);

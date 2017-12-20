@@ -1,5 +1,7 @@
 package riodopeixe.rest.resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,6 +18,7 @@ import riodopeixe.rest.model.SalesOrder;
  *
  * @author vagner
  */
+@Api(tags = "Recurso SalesOrder")
 @Path("/sales-order")
 public class SalesOrderResource {
        
@@ -31,6 +34,9 @@ public class SalesOrderResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Cache(mustRevalidate = true)
     @GZIP
+    @ApiOperation(
+		value = "Recupera vários dados a respeito dos Pedidos de Vendas por Filial que possuem alguma pendência de entrega ou montagem.",  
+		produces = MediaType.APPLICATION_JSON)    
     public ArrayList<SalesOrder> getSalesOrder(@PathParam("branchNumber") Integer branchNumber) {
         ArrayList<SalesOrder> salesList = null;          
             salesList = (ArrayList<SalesOrder>) salesOrderDataSet.listSalesOrder(branchNumber);
@@ -42,6 +48,9 @@ public class SalesOrderResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Cache(mustRevalidate = true)
     @GZIP
+    @ApiOperation(
+		value = "Recupera vários dados a respeito dos produtos dos Pedidos de Vendas por Filial que possuem alguma pendência de entrega ou montagem.",  
+		produces = MediaType.APPLICATION_JSON)      
     public ArrayList<Product> getSalesProducts(@PathParam("branchNumber") Integer branchNumber) {
         ArrayList<Product> salesList = null;          
             salesList = (ArrayList<Product>) salesOrderDataSet.listSalesProducts(branchNumber);

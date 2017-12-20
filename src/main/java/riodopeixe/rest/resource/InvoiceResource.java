@@ -2,7 +2,8 @@ package riodopeixe.rest.resource;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -30,9 +31,12 @@ import riodopeixe.rest.model.Invoice;
  *
  * @version 1.0
  */
+@Api
 @Path("/nota")
 public class InvoiceResource {
 
+    static final String API_VERSION = "1.01A rev.18729";
+    static String xmlString = null;
     InvoiceDataSet invoiceDataSet;
     SupplierDataSet supplierDataSet;
     ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +48,6 @@ public class InvoiceResource {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);        
-        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS); 
         this.invoiceDataSet = new InvoiceDataSetImpl();
         this.supplierDataSet = new SupplierDataSetImpl();
     }
@@ -58,6 +61,10 @@ public class InvoiceResource {
     @GZIP
     @Cache(mustRevalidate = true, maxAge = 3600) 
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recuperar todas as NF-e's cadastradas.",  
+		produces = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")
     public ArrayList<Invoice> getInvoices() {
         System.out.println("Get Invoices...");
         ArrayList<Invoice> notaList = (ArrayList<Invoice>) invoiceDataSet.getInvoices();
@@ -72,8 +79,12 @@ public class InvoiceResource {
     @GET
     @GZIP
     @Path("{imei}")
-    @Cache(mustRevalidate = true, maxAge = 10) 
+    @Cache(mustRevalidate = true, maxAge = 3600) 
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recupera uma NF-e com base no número de IMEI.", 
+		produces = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")    
     public Invoice getInvoceByImei(@PathParam("imei") String imei) {
         System.out.println("Geting Invoice by Imei/Id: " + imei);
         Invoice notaFiscal = invoiceDataSet.getInvoiceByGenericSearch(imei);
@@ -90,6 +101,10 @@ public class InvoiceResource {
     @Path("registro/{registro : \\d+}")    
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Recupera uma NF-e com base no número de registro do banco de dados.", 
+		produces = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")        
     public Invoice getInvoceById(@PathParam("registro") String id) {
         System.out.println("Geting Invoice by Imei: " + id);
         Invoice notaFiscal = invoiceDataSet.getInvoiceById(Integer.valueOf(id));
@@ -107,6 +122,11 @@ public class InvoiceResource {
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Atualiza a informação de uma NF-e no banco de dados.", 
+		produces = MediaType.APPLICATION_JSON,
+                consumes = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")        
     public Invoice updateInvoiceByNumber(Invoice invoice) {
         System.out.println("Update invoced, returned: " + invoice.toString());
         invoiceDataSet.updateInvoice(invoice);
@@ -122,6 +142,11 @@ public class InvoiceResource {
     @Path("{numero}")    
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Remove uma NF-e do banco de dados com base no número do seu registro.", 
+		produces = MediaType.APPLICATION_JSON,
+                consumes = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")     
     public void deleteInvoiceById(@PathParam("numero") Integer id) {
         System.out.println("Deleting Invoce by ID: " + id);
         invoiceDataSet.removeInvoice(id);
@@ -134,10 +159,15 @@ public class InvoiceResource {
      */
     @POST
     @GZIP
-    @Path("{numero}")     
+    @Path("/add")    
     @Cache(mustRevalidate = true, maxAge = 3600)     
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(
+		value = "Persiste uma nova NF-e no banco de dados.", 
+		produces = MediaType.APPLICATION_JSON,
+                consumes = MediaType.APPLICATION_JSON,
+                tags = "Recurso Invoice")     
     public Invoice invoicePersist(Invoice invoice) {
         System.out.println("Adding Invoice with ID: " + invoice.getNumber());
         if (invoice.getNumber() != null) {
