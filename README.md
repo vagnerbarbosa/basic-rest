@@ -1,5 +1,5 @@
-# riodopeixe-rest
-Rio do Peixe Rest-WebService
+# basic-rest
+Basic Rest-WebService
 
 ----------------------------------------------------------------------------
 
